@@ -1,5 +1,7 @@
 #include <string>
 
+struct InnerPacket {};
+
 enum MessageType 
 {
     file,
@@ -11,28 +13,28 @@ enum MessageType
 struct MessagePacket
 {
     MessageType type;
-    char * contents;
+    InnerPacket * contents;
 };
 
-struct FilePacket
+struct FilePacket : public InnerPacket
 {
     int bytes_total;
     int bytes_sent;
     char * bytes;
 };
 
-struct DeletePacket 
+struct DeletePacket : public InnerPacket
 {
     std::string file_name;
 };
 
-struct MovePacket
+struct MovePacket : public InnerPacket
 {
     std::string source;
     std::string destination; 
 };
 
-struct ListPacket
+struct ListPacket : public InnerPacket
 {
     std::string directory;
 };
