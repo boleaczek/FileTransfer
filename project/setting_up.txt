@@ -1,0 +1,40 @@
+Setting up a TCP listener:
+
+1.Get addrinfo struct:
+	Declare addrinfo struct.
+	Initialize hints:
+		hints.ai_family = AI_UNSPEC; //IP version agnostic
+		hints.ai_socktype = SOCK_STREAM;
+		hints.ai_flags = AI_PASSIVE; //use current IP
+	get addrinfo:
+		rv = getaddrinfo(NULL, PORT, &hints, &servinfo))
+
+2.Bind to some result in servinfo list:
+int sockfd;
+for(p = servinfo; p != NULL; p = p->ai_next) {
+	sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);//get socke file descriptor
+	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, 1); // set socket options
+	bind(sockfd, p->ai_addr, p->ai_addrlen); // bind socket
+
+3.Free addrinfo:
+freeaddrinfo(servinfo)
+
+4.Reap dead processes(?):
+    sa.sa_handler = sigchld_handler; // reap all dead processes
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    if (sigaction(SIGCHLD, &sa, NULL) == -1) {
+        perror("sigaction");
+        exit(1);
+    }
+
+5.Accept connections:
+struct sockaddr_storage their_addr;
+new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+inet_ntop(
+	their_addr.ss_family, 
+	get_in_addr((struct sockaddr *)&their_addr, 
+	s, 
+	sizeof s);
+
+		

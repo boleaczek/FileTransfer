@@ -1,5 +1,6 @@
 #include "DataManager.h"
 #include "DataPacker.h"
+#include "ICommunicatorFactory.h"
 #include <iostream>
 
 int main()
