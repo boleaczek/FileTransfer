@@ -13,25 +13,10 @@ void AbstractCommunicator::Start()
 
     for(addrinfo * p = servinfo; p != NULL; p = p->ai_next)
     {
-        this->socket_file_descriptor = GetSocketFileDescriptor(p->ai_family, p->ai_socktype, p->ai_protocol);
+        this->socket_file_descriptor = GetSocketFileDescriptor(p);
     }
     
     freeaddrinfo(servinfo);
-}
-
-void AbstractCommunicator::Connect()
-{
-    this->connection_socket_file_descriptor = GetConnectionSocketFileDescriptor();
-}
-
-void AbstractCommunicator::Send(const char * bytes, int size)
-{
-    if(this->connection_socket_file_descriptor == -1)
-    {
-        //throw exception
-    }
-
-    send(this->connection_socket_file_descriptor, bytes, size, 0);
 }
 
 int AbstractCommunicator::Recieve(char * & bytes)
@@ -40,11 +25,6 @@ int AbstractCommunicator::Recieve(char * & bytes)
     int size = recv(this->socket_file_descriptor, bytes, 499, 0);
 
     return size;
-}
-
-void AbstractCommunicator::CloseConnection()
-{
-    CloseSocket(this->connection_socket_file_descriptor);
 }
 
 void AbstractCommunicator::Stop()
