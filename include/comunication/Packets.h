@@ -1,3 +1,6 @@
+#ifndef PACKETS_H
+#define PACKETS_H
+
 #include <string>
 
 struct InnerPacket {};
@@ -38,3 +41,5 @@ struct ListPacket : public InnerPacket
 {
     std::string directory;
 };
+
+#endif

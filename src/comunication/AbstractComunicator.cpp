@@ -1,9 +1,11 @@
-#include "AbstractCommunicator.h"
+#include "AbstractComunicator.h"
 #include <unistd.h>
 #include <string.h>
+#include <iostream>
 
-void AbstractCommunicator::Start()
+void AbstractComunicator::Start()
 {
+    std::cout << "HELLO" << std::endl;
     addrinfo *servinfo, hints = GetHints();
 
     if(GetInfo(hints, servinfo) != 0)
@@ -24,7 +26,7 @@ void AbstractCommunicator::Start()
     freeaddrinfo(servinfo);
 }
 
-int AbstractCommunicator::Recieve(char * & bytes)
+int AbstractComunicator::Recieve(char * & bytes)
 {
     bytes = new char[500];
     int size = recv(this->socket_file_descriptor, bytes, 499, 0);
@@ -32,12 +34,12 @@ int AbstractCommunicator::Recieve(char * & bytes)
     return size;
 }
 
-void AbstractCommunicator::Stop()
+void AbstractComunicator::Stop()
 {
     close(this->socket_file_descriptor);
 }
 
-addrinfo AbstractCommunicator::GetHints()
+addrinfo AbstractComunicator::GetHints()
 {
     addrinfo hints;
     memset(&hints, 0, sizeof(hints));

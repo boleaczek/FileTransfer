@@ -1,8 +1,11 @@
-#include "ICommunicator.h"
+#ifndef ABSTRACT_COMMUNICATOR_H
+#define ABSTRACT_COMMUNICATOR_H
+
+#include "IComunicator.h"
 #include <string>
 #include <netdb.h>
 
-class AbstractCommunicator: public ICommunicator
+class AbstractComunicator: public IComunicator
 {
 public:
     virtual void Start() override;
@@ -16,3 +19,5 @@ protected:
     std::string port;
     int socket_file_descriptor;
 };
+
+#endif

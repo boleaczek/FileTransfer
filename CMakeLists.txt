@@ -3,10 +3,10 @@ project (cmake_directory)
 include_directories(
     include 
     include/data_manipulation 
-    include/communication
-    include/communication/communicator)
+    include/comunication
+    include/comunication/comunicator)
 file(GLOB SOURCES "src/*.cpp"
     "src/data_manipulation/*.cpp"
-    "src/communication/*.cpp")
+    "src/comunication/*.cpp")
 
 add_executable(FileTransfer ${SOURCES})
