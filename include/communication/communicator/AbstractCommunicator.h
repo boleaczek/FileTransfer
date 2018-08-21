@@ -11,7 +11,6 @@ public:
 private:
     virtual int GetInfo(const addrinfo &, addrinfo * &) = 0;
     virtual int GetSocketFileDescriptor(const addrinfo *) = 0;
-    void CloseSocket(const int);
     addrinfo GetHints();
 protected:
     std::string port;

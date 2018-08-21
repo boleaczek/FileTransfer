@@ -34,12 +34,7 @@ int AbstractCommunicator::Recieve(char * & bytes)
 
 void AbstractCommunicator::Stop()
 {
-    CloseSocket(this->socket_file_descriptor);
-}
-
-void AbstractCommunicator::CloseSocket(int fd)
-{
-    close(fd);
+    close(this->socket_file_descriptor);
 }
 
 addrinfo AbstractCommunicator::GetHints()
