@@ -14,6 +14,11 @@ void AbstractCommunicator::Start()
     for(addrinfo * p = servinfo; p != NULL; p = p->ai_next)
     {
         this->socket_file_descriptor = GetSocketFileDescriptor(p);
+        if(this->socket_file_descriptor == -1)
+        {
+            continue;
+        }
+        break;
     }
     
     freeaddrinfo(servinfo);
