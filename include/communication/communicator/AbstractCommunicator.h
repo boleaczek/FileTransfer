@@ -14,10 +14,10 @@ public:
 private:
     addrinfo GetHints();
     virtual int GetInfo(const addrinfo &, addrinfo * &) = 0;
-    virtual int GetSocketFileDescriptor(const addrinfo *) = 0;
+    virtual int GetSocketFileDescriptor(const int, const int, const int) = 0;
     virtual int GetConnectionSocketFileDescriptor() = 0;
     void CloseSocket(const int);
-
+protected:
     std::string port;
     int socket_file_descriptor;
     int connection_socket_file_descriptor = -1;

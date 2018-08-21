@@ -11,7 +11,10 @@ void AbstractCommunicator::Start()
         //throw exception
     }
 
-    this->socket_file_descriptor = GetSocketFileDescriptor(servinfo);
+    for(addrinfo * p = servinfo; p != NULL; p = p->ai_next)
+    {
+        this->socket_file_descriptor = GetSocketFileDescriptor(p->ai_family, p->ai_socktype, p->ai_protocol);
+    }
     
     freeaddrinfo(servinfo);
 }
