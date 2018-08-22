@@ -2,18 +2,15 @@
 
 int ClientComunicator::GetInfo(const addrinfo & hints, addrinfo * & servinfo) 
 {
-    return getaddrinfo(this->destination_addres.c_str(), this->port.c_str(), &hints, &servinfo);
+    return getaddrinfo(this->destination_addres.c_str(), "3490", &hints, &servinfo);
 }
 
 int ClientComunicator::GetSocketFileDescriptor(const addrinfo * info)
 {
-    int socket_fd = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
-    if(socket_fd == -1)
-    {
-        return -1;
-    }
+    this->recieving_socket_file_descriptor = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
+    connect(this->recieving_socket_file_descriptor, info->ai_addr, info->ai_addrlen);
     
-    return connect(socket_fd, info->ai_addr, info->ai_addrlen);
+    return this->recieving_socket_file_descriptor;
 }
 
 void ClientComunicator::Send(const char * bytes, int size)

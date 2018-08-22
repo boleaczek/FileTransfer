@@ -4,8 +4,7 @@
 MessagePacket DataPacker::Unpack(const char * bytes)
 {
     MessagePacket packet;
-    std::memcpy(&packet, bytes, sizeof(packet));
-
+    std::memcpy(&packet, &bytes, sizeof(packet));
     return packet;
 }
 

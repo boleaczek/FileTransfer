@@ -1,11 +1,9 @@
 #include "AbstractComunicator.h"
 #include <unistd.h>
 #include <string.h>
-#include <iostream>
 
 void AbstractComunicator::Start()
 {
-    std::cout << "HELLO" << std::endl;
     addrinfo *servinfo, hints = GetHints();
 
     if(GetInfo(hints, servinfo) != 0)
@@ -28,9 +26,8 @@ void AbstractComunicator::Start()
 
 int AbstractComunicator::Recieve(char * & bytes)
 {
-    bytes = new char[500];
-    int size = recv(this->socket_file_descriptor, bytes, 499, 0);
-
+    bytes = new char[16];
+    int size = recv(this->recieving_socket_file_descriptor, &bytes, 15, 0);
     return size;
 }
 

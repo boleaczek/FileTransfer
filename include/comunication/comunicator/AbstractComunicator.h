@@ -18,6 +18,7 @@ private:
 protected:
     std::string port;
     int socket_file_descriptor;
+    int recieving_socket_file_descriptor;
 };
 
 #endif

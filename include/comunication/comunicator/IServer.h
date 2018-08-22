@@ -2,8 +2,9 @@
 #define ISERVER_H
 
 #include "IComunicator.h"
+#include "AbstractComunicator.h"
 
-class IServer : public IComunicator
+class IServer : public AbstractComunicator
 {
 public:
     virtual void AcceptConnection() = 0;
