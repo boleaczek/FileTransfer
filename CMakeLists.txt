@@ -4,7 +4,10 @@ include_directories(
     include 
     include/data_manipulation 
     include/network
-    include/network/communication)
+    include/network/communication
+    include/network/communication/client
+    include/network/communication/server
+    include/network/communication/factory)
 file(GLOB SOURCES "src/*.cpp"
     "src/data_manipulation/*.cpp"
     "src/comunication/*.cpp")
