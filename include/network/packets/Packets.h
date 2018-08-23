@@ -8,9 +8,9 @@ struct InnerPacket {};
 enum MessageType 
 {
     file,
-    delete_command,
-    move_command,
-    list_command
+    remove_file,
+    move,
+    list
 };
 
 struct MessagePacket
@@ -26,7 +26,7 @@ struct FilePacket : public InnerPacket
     char * bytes;
 };
 
-struct DeletePacket : public InnerPacket
+struct RemovePacket : public InnerPacket
 {
     std::string file_name;
 };
