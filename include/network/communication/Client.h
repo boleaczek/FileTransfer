@@ -1,10 +1,10 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "AbstractComunicator.h"
+#include "AbstractCommunicator.h"
 #include <string>
 
-class Client : public AbstractComunicator
+class Client : public AbstractCommunicator
 {
 public:
     Client(const std::string, const std::string);

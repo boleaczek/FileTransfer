@@ -1,14 +1,14 @@
-#include "AbstractComunicator.h"
+#include "AbstractCommunicator.h"
 #include <unistd.h>
 #include <string.h>
 
-AbstractComunicator::AbstractComunicator(const std::string addres, const std::string port)
+AbstractCommunicator::AbstractCommunicator(const std::string addres, const std::string port)
 {
     this->addres = addres;
     this->port = port;
 }
 
-void AbstractComunicator::Start()
+void AbstractCommunicator::Start()
 {
     addrinfo *servinfo, hints = GetHints();
 
@@ -30,17 +30,17 @@ void AbstractComunicator::Start()
     freeaddrinfo(servinfo);
 }
 
-int AbstractComunicator::GetInfo(const addrinfo & hints, addrinfo * & servinfo) 
+int AbstractCommunicator::GetInfo(const addrinfo & hints, addrinfo * & servinfo) 
 {
     return getaddrinfo(this->addres.c_str(), this->port.c_str(), &hints, &servinfo);
 }
 
-void AbstractComunicator::Stop()
+void AbstractCommunicator::Stop()
 {
     close(this->socket_file_descriptor);
 }
 
-addrinfo AbstractComunicator::GetHints()
+addrinfo AbstractCommunicator::GetHints()
 {
     addrinfo hints;
     memset(&hints, 0, sizeof(hints));

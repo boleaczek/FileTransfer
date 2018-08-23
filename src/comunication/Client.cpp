@@ -20,4 +20,4 @@ int Client::Recieve(char * & bytes, int expected_size)
 }
 
 Client::Client(std::string destination_addres, std::string port) 
-    : AbstractComunicator(destination_addres, port) {}
+    : AbstractCommunicator(destination_addres, port) {}

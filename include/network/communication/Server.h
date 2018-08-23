@@ -1,11 +1,11 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "AbstractComunicator.h"
+#include "AbstractCommunicator.h"
 #include "IServer.h"
 #include <string>
 
-class Server : public IServer, public AbstractComunicator
+class Server : public IServer, public AbstractCommunicator
 {
 public:
     Server(const std::string, const std::string);

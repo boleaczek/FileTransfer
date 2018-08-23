@@ -52,13 +52,13 @@ int Server::Recieve(char * & bytes, int expected_size)
 
 void Server::Start()
 {
-    AbstractComunicator::Start();
+    AbstractCommunicator::Start();
 }
 
 void Server::Stop()
 {
-    AbstractComunicator::Stop();
+    AbstractCommunicator::Stop();
 }
 
 Server::Server(const std::string addres, const std::string port)
-    : AbstractComunicator(addres, port) {}
+    : AbstractCommunicator(addres, port) {}

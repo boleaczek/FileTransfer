@@ -1,7 +1,7 @@
 #ifndef I_COMMUNICATOR_H
 #define I_COMMUNICATOR_H
 
-class IComunicator
+class ICommunicator
 {
 public:
     virtual void Start() = 0;

@@ -1,14 +1,14 @@
-#ifndef ABSTRACT_COMUNICATOR_H
-#define ABSTRACT_COMUNICATOR_H
+#ifndef ABSTRACT_COMMUNICATOR_H
+#define ABSTRACT_COMMUNICATOR_H
 
-#include "IComunicator.h"
+#include "ICommunicator.h"
 #include <string>
 #include <netdb.h>
 
-class AbstractComunicator: public IComunicator
+class AbstractCommunicator: public ICommunicator
 {
 public:
-    AbstractComunicator(const std::string, const std::string);
+    AbstractCommunicator(const std::string, const std::string);
     virtual void Start() override;
     virtual void Stop() override;
 private:
