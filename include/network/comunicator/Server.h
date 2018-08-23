@@ -1,17 +1,21 @@
-#ifndef SERVER_COMMUNICATOR_H
-#define SERVER_COMMUNICATOR_H
+#ifndef SERVER_H
+#define SERVER_H
 
 #include "AbstractComunicator.h"
 #include "IServer.h"
+#include <string>
 
-class ServerComunicator : public IServer
+class Server : public IServer, public AbstractComunicator
 {
 public:
+    Server(const std::string, const std::string);
     virtual void AcceptConnection() override;
     virtual void CloseConnection() override;
     virtual void Send(const char *, int) override;
+    virtual int Recieve(char * &, int) override;
+    virtual void Start() override;
+    virtual void Stop() override;
 private:
-    virtual int GetInfo(const addrinfo &, addrinfo * &) override;
     virtual int GetSocketFileDescriptor(const addrinfo *) override;
 
     int connected_socket_file_descriptor;

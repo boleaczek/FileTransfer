@@ -3,8 +3,8 @@ project (cmake_directory)
 include_directories(
     include 
     include/data_manipulation 
-    include/comunication
-    include/comunication/comunicator)
+    include/network
+    include/network/comunicator)
 file(GLOB SOURCES "src/*.cpp"
     "src/data_manipulation/*.cpp"
     "src/comunication/*.cpp")

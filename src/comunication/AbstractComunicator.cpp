@@ -2,6 +2,12 @@
 #include <unistd.h>
 #include <string.h>
 
+AbstractComunicator::AbstractComunicator(const std::string addres, const std::string port)
+{
+    this->addres = addres;
+    this->port = port;
+}
+
 void AbstractComunicator::Start()
 {
     addrinfo *servinfo, hints = GetHints();
@@ -24,11 +30,9 @@ void AbstractComunicator::Start()
     freeaddrinfo(servinfo);
 }
 
-int AbstractComunicator::Recieve(char * & bytes)
+int AbstractComunicator::GetInfo(const addrinfo & hints, addrinfo * & servinfo) 
 {
-    bytes = new char[16];
-    int size = recv(this->recieving_socket_file_descriptor, &bytes, 15, 0);
-    return size;
+    return getaddrinfo(this->addres.c_str(), this->port.c_str(), &hints, &servinfo);
 }
 
 void AbstractComunicator::Stop()

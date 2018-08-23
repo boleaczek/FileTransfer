@@ -8,8 +8,8 @@
 class IComunicatorCreator
 {
 public:
-    virtual IComunicator * BuildClient(std::string) = 0;
-    virtual IServer * BuildServer() = 0;
+    virtual IComunicator * BuildClient(const std::string, const std::string) = 0;
+    virtual IServer * BuildServer(const std::string, const std::string) = 0;
 };
 
 #endif

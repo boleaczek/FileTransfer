@@ -1,15 +1,13 @@
 #include "ComunicatorCreator.h"
-#include "ClientComunicator.h"
-#include "ServerComunicator.h"
+#include "Client.h"
+#include "Server.h"
 
-IComunicator * ComunicatorCreator::BuildClient(std::string destination_ip)
+IComunicator * ComunicatorCreator::BuildClient(const std::string destination_ip, const std::string port)
 {
-    ClientComunicator Comunicator(destination_ip);
-    return static_cast<IComunicator *>(&Comunicator);
+    return new Client(destination_ip, port);
 }
 
-IServer * ComunicatorCreator::BuildServer()
+IServer * ComunicatorCreator::BuildServer(const std::string addres, const std::string port)
 {
-    ServerComunicator Comunicator;
-    return static_cast<IServer *>(&Comunicator);
+    return new Server(addres, port);
 }

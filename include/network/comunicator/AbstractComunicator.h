@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_COMMUNICATOR_H
-#define ABSTRACT_COMMUNICATOR_H
+#ifndef ABSTRACT_COMUNICATOR_H
+#define ABSTRACT_COMUNICATOR_H
 
 #include "IComunicator.h"
 #include <string>
@@ -8,17 +8,17 @@
 class AbstractComunicator: public IComunicator
 {
 public:
+    AbstractComunicator(const std::string, const std::string);
     virtual void Start() override;
-    virtual int Recieve(char * &) override;
     virtual void Stop() override;
 private:
-    virtual int GetInfo(const addrinfo &, addrinfo * &) = 0;
+    int GetInfo(const addrinfo &, addrinfo * &);
     virtual int GetSocketFileDescriptor(const addrinfo *) = 0;
     addrinfo GetHints();
 protected:
     std::string port;
+    std::string addres;
     int socket_file_descriptor;
-    int recieving_socket_file_descriptor;
 };
 
 #endif

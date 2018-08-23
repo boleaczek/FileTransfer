@@ -2,13 +2,13 @@
 #define ISERVER_H
 
 #include "IComunicator.h"
-#include "AbstractComunicator.h"
 
-class IServer : public AbstractComunicator
+class IServer : public IComunicator
 {
 public:
     virtual void AcceptConnection() = 0;
     virtual void CloseConnection() = 0;
+    IComunicator * communicator;
 };
 
 #endif
