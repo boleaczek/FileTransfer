@@ -2,17 +2,21 @@
 #define MENU_H
 
 #include "ICommunicatorCreator.h"
+#include "ICommandParser.h"
 #include "IDataPacker.h"
 #include "IDataManager.h"
 
 class Menu
 {
 public:
-    void Start(const std::string, const std::string, ICommunicatorCreator *);
+    void Start();
+    Menu();
 private:
-    std::string ParseInput(const std::string);
-    MessagePacket CreatePacket(const std::string);
-    ListPacket CreateListPacket();
+    ParsingResult ParseInput(const std::string);
+    ICommunicator * GetCommunicator();
+
+    ICommunicatorCreator * factory;
+    ICommandParser * parser;
 };
 
 #endif

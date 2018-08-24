@@ -6,7 +6,7 @@
 #include <Packets.h>
 #include "ICommandParser.h"
 
-class CommandParser : ICommandParser
+class CommandParser : public ICommandParser
 {
 public:
     virtual ParsingResult Parse(const std::string) override;

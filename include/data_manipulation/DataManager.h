@@ -4,7 +4,7 @@
 #include "IDataManager.h"
 #include <fstream>
 
-class DataReader : public IDataReader
+class DataManager : public IDataManager
 {
 public:
     virtual int ReadData(const std::string, char * &) override;

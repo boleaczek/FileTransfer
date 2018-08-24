@@ -3,7 +3,7 @@
 
 #include <string>
 
-class IDataReader
+class IDataManager
 {
 public:
     virtual int ReadData(const std::string, char * &) = 0;
