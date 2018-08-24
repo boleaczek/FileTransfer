@@ -1,9 +1,8 @@
 #include "Menu.h"
 #include "ICommunicator.h"
+#include "MessageTypeToString.h"
 #include <iostream>
 #include <string>
-
-
 
 void Menu::Start(const std::string addres, const std::string port, ICommunicatorCreator * factory)
 {
@@ -14,4 +13,11 @@ void Menu::Start(const std::string addres, const std::string port, ICommunicator
     {
         std::cin >> input;
     }
+
+    delete client;
+}
+
+std::string Menu::ParseInput(const std::string)
+{
+    
 }
