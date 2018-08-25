@@ -3,11 +3,17 @@
 
 #include "Packets.h"
 
+struct PackData
+{
+    MessageType type;
+    InnerPacket * inner;
+};
+
 class IDataPacker
 {
 public:
-    virtual MessagePacket Unpack(const char * bytes) = 0;
-    virtual char * Pack(const MessagePacket packet) = 0;
+    virtual PackData Unpack(const char * bytes) = 0;
+    virtual char * Pack(const PackData packet) = 0;
 };
 
 #endif

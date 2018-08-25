@@ -3,7 +3,10 @@
 
 #include <string>
 
-struct InnerPacket {};
+struct InnerPacket 
+{
+    virtual ~InnerPacket(){};
+};
 
 enum MessageType 
 {
@@ -16,7 +19,7 @@ enum MessageType
 struct MessagePacket
 {
     MessageType type;
-    InnerPacket * contents;
+    char * contents;
 };
 
 struct FilePacket : public InnerPacket
@@ -28,18 +31,18 @@ struct FilePacket : public InnerPacket
 
 struct RemovePacket : public InnerPacket
 {
-    std::string file_name;
+    char * file_name;
 };
 
 struct MovePacket : public InnerPacket
 {
-    std::string source;
-    std::string destination; 
+    char * source;
+    char * destination; 
 };
 
 struct ListPacket : public InnerPacket
 {
-    std::string directory;
+    char * directory;
 };
 
 #endif

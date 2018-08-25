@@ -1,7 +1,7 @@
 #include "DataManager.h"
 #include <cstring>
 
-int DataReader::ReadData(const std::string fileName, char * & bytes)
+int DataManager::ReadData(const std::string fileName, char * & bytes)
 {
     std::ifstream file (fileName, std::ifstream::binary);
     
@@ -16,7 +16,7 @@ int DataReader::ReadData(const std::string fileName, char * & bytes)
     return (int)size;
 }
 
-void DataReader::WriteData(const std::string fileName, const char * bytes, int size)
+void DataManager::WriteData(const std::string fileName, const char * bytes, int size)
 {
     std::ofstream file (fileName, std::ofstream::binary);
     
