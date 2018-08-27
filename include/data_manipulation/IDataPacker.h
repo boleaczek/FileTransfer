@@ -1,12 +1,12 @@
 #ifndef I_DATA_PACKER_H
 #define I_DATA_PACKER_H
 
-#include "Packets.h"
+#include "Packet.h"
 
 struct PackData
 {
     MessageType type;
-    InnerPacket * inner;
+    //InnerPacket * inner;
 };
 
 class IDataPacker

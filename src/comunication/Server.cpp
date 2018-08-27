@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <iostream>
+#include <string.h>
 
 int Server::GetSocketFileDescriptor(const addrinfo * servinfo)
 {
@@ -26,11 +27,11 @@ int Server::GetSocketFileDescriptor(const addrinfo * servinfo)
 
 void Server::AcceptConnection()
 {
-    sockaddr_storage * connection_addres;
+    sockaddr_in connection_addres;
     socklen_t size_of_connection_addres = sizeof(connection_addres);
     listen(this->socket_file_descriptor, 1);
     this->connected_socket_file_descriptor = accept(this->socket_file_descriptor, 
-        (sockaddr *) connection_addres, 
+        (sockaddr *) &connection_addres, 
         &size_of_connection_addres);
 }
 
@@ -46,6 +47,7 @@ void Server::CloseConnection()
 
 int Server::Recieve(char * & bytes, int expected_size)
 {
+    bytes = new char[expected_size];
     int size = recv(this->connected_socket_file_descriptor, bytes, expected_size, 0);
     return size;
 }

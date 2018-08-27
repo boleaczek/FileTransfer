@@ -1,6 +1,6 @@
 #include "CommandParser.h"
 #include "MessageTypeToString.h"
-#include "Packets.h"
+#include "Packet.h"
 #include <iterator>
 #include <iostream>
 #include <sstream>

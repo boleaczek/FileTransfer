@@ -13,6 +13,7 @@ include_directories(
 file(GLOB SOURCES "src/*.cpp"
     "src/data_manipulation/*.cpp"
     "src/comunication/*.cpp"
+    "src/comunication/packets/*.cpp"
     "src/tools/*.cpp")
 
 add_executable(FileTransfer ${SOURCES})
