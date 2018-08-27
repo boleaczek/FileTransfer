@@ -10,7 +10,8 @@ struct FilePacket : public Packet
     char * bytes;
 
     virtual std::stringstream Serialize() override;
-    static FilePacket Deserialize(std::stringstream);
+    static FilePacket Deserialize(std::stringstream&);
+    ~FilePacket();
 };
 
 #endif

@@ -15,6 +15,7 @@ struct Packet
 {
     virtual std::stringstream Serialize();
     static Packet Deserialize(std::stringstream stream);
+    static int CharPtrToInt(char *, bool);
 };
 
 #endif
