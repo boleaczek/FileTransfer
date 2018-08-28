@@ -2,6 +2,8 @@
 #define PACKET_H
 
 #include <sstream>
+#include <unordered_map>
+#include <functional>
 
 enum MessageType 
 {
@@ -16,6 +18,8 @@ struct Packet
     virtual std::stringstream Serialize();
     static Packet Deserialize(std::stringstream stream);
     static int CharPtrToInt(char *, bool);
+    
+    static int LoadIntFromStream(std::stringstream &);
 };
 
 #endif

@@ -18,15 +18,8 @@ FilePacket FilePacket::Deserialize(std::stringstream & stream)
 {
     FilePacket packet;
 
-    char * bytes = new char[sizeof(packet.bytes_sent)];
-    stream.read(bytes, sizeof(packet.bytes_sent));
-    packet.bytes_sent = CharPtrToInt(bytes, true); 
-    delete[] bytes;
-
-    bytes = new char[sizeof(packet.bytes_total)];
-    stream.read(bytes, sizeof(packet.bytes_total));
-    packet.bytes_total = CharPtrToInt(bytes, true);
-    delete[] bytes;
+    packet.bytes_sent = LoadIntFromStream(stream);
+    packet.bytes_total = LoadIntFromStream(stream);
     
     packet.bytes = new char[packet.bytes_sent];
     stream.read(packet.bytes, packet.bytes_sent);

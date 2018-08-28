@@ -7,10 +7,11 @@
 
 struct CommandPacket : public Packet
 {
+    MessageType type;
     std::vector<std::string> args;
     
     virtual std::stringstream Serialize() override;
-    static CommandPacket Deserialize(std::stringstream);
+    static CommandPacket Deserialize(std::stringstream &);
 };
 
 #endif

@@ -32,3 +32,12 @@ int Packet::CharPtrToInt(char * bytes, bool little_endian)
 
     return result;
 }
+
+int Packet::LoadIntFromStream(std::stringstream & stream)
+{
+    char * bytes = new char[sizeof(int)];
+    stream.read(bytes, sizeof(int));
+    int result = CharPtrToInt(bytes, true);
+    delete[] bytes;
+    return result;
+}
