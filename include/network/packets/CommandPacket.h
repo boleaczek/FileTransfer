@@ -5,13 +5,20 @@
 #include <string>
 #include <vector>
 
+enum CommandType
+{
+    remove_file,
+    move,
+    list
+};
+
 struct CommandPacket : public Packet
 {
-    MessageType type;
     std::vector<std::string> args;
-    
+    CommandType command;
+
     virtual std::stringstream Serialize() override;
-    static CommandPacket Deserialize(std::stringstream &);
+    static Packet * Deserialize(std::stringstream &);
 };
 
 #endif

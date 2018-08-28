@@ -1,13 +1,22 @@
 #include "Packet.h"
-
-Packet Packet::Deserialize(std::stringstream stream)
-{
-
-}
+#include "FilePacket.h"
+#include "CommandPacket.h"
 
 std::stringstream Packet::Serialize()
 {
+    std::stringstream stream;
+    stream.write(reinterpret_cast<const char*>(&this->type)
+    , sizeof(int));
+    return stream;
+}
 
+Packet * Packet::Deserialize(std::stringstream & stream)
+{
+    Packet * packet;
+    MessageType type = MessageType(LoadIntFromStream(stream));
+    packet = deserialization_methods[type](stream);
+    packet->type = type;
+    return packet;
 }
 
 int Packet::CharPtrToInt(char * bytes, bool little_endian)
@@ -41,3 +50,10 @@ int Packet::LoadIntFromStream(std::stringstream & stream)
     delete[] bytes;
     return result;
 }
+
+std::unordered_map<MessageType
+        , std::function<Packet *(std::stringstream &)>> Packet::deserialization_methods =
+        {
+            {MessageType::file, FilePacket::Deserialize},
+            {MessageType::command, CommandPacket::Deserialize}
+        };

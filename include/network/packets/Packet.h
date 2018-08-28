@@ -8,18 +8,20 @@
 enum MessageType 
 {
     file,
-    remove_file,
-    move,
-    list
+    command
 };
 
 struct Packet
 {
     virtual std::stringstream Serialize();
-    static Packet Deserialize(std::stringstream stream);
+    static Packet * Deserialize(std::stringstream &);
     static int CharPtrToInt(char *, bool);
-    
     static int LoadIntFromStream(std::stringstream &);
+
+    MessageType type;
+private:
+    static std::unordered_map<MessageType
+        , std::function<Packet *(std::stringstream &)>> deserialization_methods;
 };
 
 #endif
