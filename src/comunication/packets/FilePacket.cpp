@@ -34,3 +34,8 @@ FilePacket::~FilePacket()
         delete[] this->bytes;
     }
 }
+
+FilePacket::FilePacket()
+{
+    this->type = MessageType::file;
+}

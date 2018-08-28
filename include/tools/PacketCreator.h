@@ -2,23 +2,22 @@
 #define PACKET_CREATOR_H
 
 #include "IPacketCreator.h"
-#include "IDataPacker.h"
-#include<unordered_map>
-#include<functional>
+#include "Packet.h"
+#include <unordered_map>
+#include <functional>
 
 class PacketCreator : public IPacketCreator
 {
-// public:
-//     PacketCreator(IDataPacker *);
-//     virtual char * CreateCommandPacket(MessageType, std::vector<std::string> args) override;
-//     virtual std::vector<char*> GetFilePackets(std::string) override;
-// private:
-//     void ValidArgs(int, int);
-//     char * CopyStrToCharPtr(std::string);
+public:
+    PacketCreator();
+    virtual int CreateCommandPacket(CommandType, std::vector<std::string> args, char * &) override;
+    virtual std::vector<std::tuple<char*,int>> CreateFilePackets(std::string) override;
+private:
+    void ValidArgs(int, int);
+    char * CopyStrToCharPtr(std::string);
 
-//     IDataPacker * data_packer;
-//     std::unordered_map<MessageType, 
-//         std::function<InnerPacket *(std::vector<std::string>)>> command_creator_function;
+    std::unordered_map<CommandType, 
+        std::function<Packet *(std::vector<std::string>)>> command_creator_fucntions;
 };
 
 #endif

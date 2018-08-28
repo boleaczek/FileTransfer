@@ -1,74 +1,69 @@
 #include "PacketCreator.h"
-#include "IDataPacker.h"
-#include "DataPacker.h"
 #include <cstring>
 #include <iostream>
+#include <strstream>
+#include <string>
+#include <algorithm>
 
-// char * PacketCreator::CreateCommandPacket(MessageType type, std::vector<std::string> args)
-// {
-//     PackData pd;
-//     pd.type = type;
-//     pd.inner = this->command_creator_function[type](args);
-//     std::cout << pd.inner << std::endl;
-//     DataPacker dp;
-//     char * packed = this->data_packer->Pack(pd);
+int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
+{
+    Packet * p;
+    p = this->command_creator_fucntions[type](args);
 
+    std::stringstream stream = p->Serialize();
+    std::string temp = stream.str();
 
-//     //delete pd.inner;    
-//     return packed;
-// }
+    packet = new char[temp.length() + 1];
+    std::copy(temp.c_str(), temp.c_str() + temp.length() + 1, packet);
 
-// std::vector<char *> PacketCreator::GetFilePackets(std::string file_name)
-// {
+    delete p;
 
-// }
+    return temp.length();
+}
 
-// void PacketCreator::ValidArgs(int recieved, int expected)
-// {
-//     if(recieved != expected)
-//     {
-//         //throw exception
-//     }
-// }
+std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string)
+{
 
-// char * PacketCreator::CopyStrToCharPtr(std::string str)
-// {
-//     char * res = new char[str.length() + 1];
-//     std::strcpy(res, str.c_str());
-//     return res;
-// }
+}
 
-// PacketCreator::PacketCreator(IDataPacker * data_packer)
-// {
-//     this->data_packer = data_packer;
-//     this->command_creator_function = 
-//         {
-//             {MessageType::list , 
-//                 [=](std::vector<std::string> args)
-//                 {
-//                     this->ValidArgs(args.size(), 1);
-//                     ListPacket * lp = new ListPacket;
-//                     lp->directory = this->CopyStrToCharPtr(args[0]);
-//                     return lp;
-//                 }
-//             },
-//             {MessageType::move, 
-//                 [=](std::vector<std::string> args)
-//                 {
-//                     this->ValidArgs(args.size(), 2);
-//                     MovePacket * mp = new MovePacket;
-//                     mp->source = this->CopyStrToCharPtr(args[0]);
-//                     mp->destination = this->CopyStrToCharPtr(args[1]);
-//                     return mp;
-//                 }
-//             },
-//             {MessageType::remove_file,
-//                 [=](std::vector<std::string> args)
-//                 {
-//                     this->ValidArgs(args.size(), 1);
-//                     RemovePacket * rp = new RemovePacket;
-//                     rp->file_name = this->CopyStrToCharPtr(args[0]);
-//                     return rp;
-//                 }}
-//         };
-// }
+void PacketCreator::ValidArgs(int recieved, int expected)
+{
+    if(recieved != expected)
+    {
+        //throw exception
+    }
+}
+
+char * PacketCreator::CopyStrToCharPtr(std::string str)
+{
+    char * res = new char[str.length() + 1];
+    std::strcpy(res, str.c_str());
+    return res;
+}
+
+PacketCreator::PacketCreator()
+{
+    this->command_creator_fucntions = 
+        {
+            {CommandType::list , 
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 1);
+                    return new CommandPacket(CommandType::list, args);
+                }
+            },
+            {CommandType::move, 
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 2);
+                    return new CommandPacket(CommandType::move, args);
+                }
+            },
+            {CommandType::remove_file,
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 1);
+                    return new CommandPacket(CommandType::remove_file, args);
+                }}
+        };
+}
