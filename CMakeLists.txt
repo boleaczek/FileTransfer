@@ -5,6 +5,7 @@ include_directories(
     include/data_manager 
     include/network
     include/tools
+    include/tools/packet_tools
     include/network/packets
     include/network/communication
     include/network/communication/client

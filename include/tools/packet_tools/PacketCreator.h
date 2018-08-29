@@ -3,21 +3,30 @@
 
 #include "IPacketCreator.h"
 #include "Packet.h"
+#include "FilePacket.h"
+#include "IDataManager.h"
+#include "DataManager.h"
 #include <unordered_map>
 #include <functional>
 
 class PacketCreator : public IPacketCreator
 {
 public:
-    PacketCreator();
+    PacketCreator(IDataManager *, int=500, int=50);
     virtual int CreateCommandPacket(CommandType, std::vector<std::string> args, char * &) override;
     virtual std::vector<std::tuple<char*,int>> CreateFilePackets(std::string) override;
 private:
     void ValidArgs(int, int);
-    char * CopyStrToCharPtr(std::string);
+    int GetChunkSize(int, int);
+    int GetBytesFromStream(std::stringstream &, char * &);
+    char * GetChunk(char *, int, int);
+    int GetPaddingLength(int);
 
     std::unordered_map<CommandType, 
-        std::function<Packet *(std::vector<std::string>)>> command_creator_fucntions;
+        std::function<Packet *(std::vector<std::string>)>> command_creator_functions;
+    IDataManager * data_manager;
+    int max_chunk_size;
+    int max_meta_size;
 };
 
 #endif

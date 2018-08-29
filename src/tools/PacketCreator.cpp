@@ -27,7 +27,7 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
     int length = this->data_manager->ReadData(filename, bytes);
     int bytes_left = length, cursor = 0;
 
-    int to_write = GetChunkSize(this->max_block_size, bytes_left);
+    int to_write = GetChunkSize(this->max_chunk_size, bytes_left);
 
     while(bytes_left > 0)
     {
@@ -45,7 +45,7 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
 
         bytes_left -= to_write;
         cursor += to_write;
-        to_write = GetChunkSize(this->max_block_size, bytes_left);
+        to_write = GetChunkSize(this->max_chunk_size, bytes_left);
     }
 
     delete[] bytes;
@@ -62,7 +62,8 @@ int PacketCreator::GetBytesFromStream(std::stringstream & stream, char * & bytes
 {
     std::string temp = stream.str();
 
-    bytes = new char[temp.length() + 1];
+    int padding = (this->max_chunk_size + this->max_meta_size) - (temp.length() + 1);
+    bytes = new char[(temp.length() + 1) + padding];
     std::copy(temp.c_str(), temp.c_str() + temp.length() + 1, bytes);
 
     return temp.length();
@@ -83,10 +84,11 @@ void PacketCreator::ValidArgs(int recieved, int expected)
     }
 }
 
-PacketCreator::PacketCreator(IDataManager * dm, int max_block_size)
+PacketCreator::PacketCreator(IDataManager * dm, int max_chunk_size, int max_meta_size)
 {
     this->data_manager = dm;
-    this->max_block_size = max_block_size;
+    this->max_chunk_size = max_chunk_size;
+    this->max_meta_size = max_meta_size;
     this->command_creator_functions = 
         {
             {CommandType::list , 
