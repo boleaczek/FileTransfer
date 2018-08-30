@@ -8,7 +8,7 @@ std::stringstream CommandPacket::Serialize()
     
     ss.write(reinterpret_cast<const char*>(&this->command),
         sizeof(int));
-
+    
     int vector_size = args.size();
     ss.write(reinterpret_cast<const char*>(&vector_size),
         sizeof(int));
@@ -29,7 +29,7 @@ Packet * CommandPacket::Deserialize(std::stringstream & stream)
     CommandPacket * packet = new CommandPacket;
     
     packet->command = CommandType(Packet::LoadIntFromStream(stream));
-
+    std::cout << packet->command << std::endl;
     int size = Packet::LoadIntFromStream(stream);
     
     char * char_arg;

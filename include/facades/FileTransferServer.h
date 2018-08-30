@@ -1,23 +1,27 @@
 #ifndef FILE_TRANSFER_SERVER_H
 #define FILE_TRANSFER_SERVER_H
 
-#include <string>
-#include "IDataManager.h"
+#include "FileTransferHelpers.h"
 #include "IServer.h"
-#include "IPacketExtractor.h"
-#include "IPacketCreator.h"
+#include <unordered_map>
+#include <functional>
+#include <string>
+#include <vector>
 
 class FileTransferServer
 {
 public:
-    FileTransferServer(std::string, std::string);
+    FileTransferServer(std::string, std::string, int=500);
     ~FileTransferServer();
     void Start();
 private:
-    IServer * communicator;
-    IDataManager * data_manager;
-    IPackeExtractor * packet_extractor;
-    IPacketCreator * packet_creator;
+    void HandleCommand(CommandType, std::vector<std::string>);
+
+    FileTransferHelpers helpers;
+    IServer * server;
+    int max_packet_size;
+    std::unordered_map<CommandType, 
+        std::function<void (std::vector<std::string>)>> command_handlers;
 };
 
 #endif

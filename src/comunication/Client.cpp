@@ -15,6 +15,7 @@ void Client::Send(const char * bytes, int size)
 
 int Client::Recieve(char * & bytes, int expected_size)
 {
+    bytes = new char[expected_size];
     int size = recv(this->socket_file_descriptor, bytes, expected_size, 0);
     return size;
 }

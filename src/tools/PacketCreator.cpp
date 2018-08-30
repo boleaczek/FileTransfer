@@ -10,11 +10,10 @@
 
 int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
-    std::cout << args[0] << std::endl;
     Packet * p;
     p = this->command_creator_functions[type](args);
     std::stringstream stream = p->Serialize();
-
+    
     delete p;
 
     return GetBytesFromStream(stream, packet);
@@ -111,7 +110,15 @@ PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
                 {
                     this->ValidArgs(args.size(), 1);
                     return new CommandPacket(CommandType::remove_file, args);
-                }}
+                }
+            },
+            {CommandType::ping,
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 0);
+                    return new CommandPacket(CommandType::ping, args);
+                }
+            }
         };
 
 }

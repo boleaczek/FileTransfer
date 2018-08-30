@@ -2,7 +2,7 @@
 #include "CommandPacket.h"
 
 std::string StringToEnumNumber::message_type_array[2] = {"file","command"};
-std::string StringToEnumNumber::command_type_array[3] = {"remove","move","list"};
+std::string StringToEnumNumber::command_type_array[4] = {"remove","move","list", "ping"};
 
 const int message_types_n = 4;
 
@@ -13,7 +13,7 @@ int StringToEnumNumber::StringToMessageType(const std::string message_string)
 
 int StringToEnumNumber::StringToCommandType(const std::string message_string)
 {
-    return GetEnum(message_string, command_type_array, 3);
+    return GetEnum(message_string, command_type_array, 4);
 }
 
 int StringToEnumNumber::GetEnum(const std::string message_string, const std::string type_array[], int n)

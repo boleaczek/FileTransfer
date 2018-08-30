@@ -3,6 +3,7 @@
 #include "PacketCreator.h"
 #include "PacketExtractor.h"
 #include "algorithm"
+#include "iostream"
 
 int FileTransferHelpers::GetCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
@@ -31,7 +32,9 @@ void FileTransferHelpers::SendCommand(ICommunicator * handle, char * bytes, int 
 PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_size)
 {
     char * bytes;
+    
     handle->Recieve(bytes, max_packet_size);
+    
     Packet * packet = this->packet_extractor->ExtractPacket(bytes);
 
     PacketData result;
@@ -42,6 +45,7 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
         CommandPacket * command_packet = static_cast<CommandPacket *>(packet);
         result.args = command_packet->args;
         result.command = command_packet->command;
+        
         return result;
     }
     else if(packet->type == MessageType::file)

@@ -1,11 +1,14 @@
 #include "PacketExtractor.h"
 #include <strstream>
+#include <iostream>
 
 Packet * PacketExtractor::ExtractPacket(char * bytes)
 {
     std::stringstream stream;
     stream.write(bytes, this->packet_size);
+    
     Packet * p = Packet::Deserialize(stream);
+    
     return p;
 }
 

@@ -14,7 +14,7 @@ void Menu::Start()
     std::string input;
     std::getline(std::cin, input);
     while(input != "exit")
-    {
+    {   
         PacketData pd = this->parser->Parse(input);
         this->client->SendPacket(pd);
         std::getline(std::cin, input);

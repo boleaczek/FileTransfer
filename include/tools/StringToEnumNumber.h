@@ -13,7 +13,7 @@ private:
     static int GetEnum(const std::string, const std::string[], int);
 
     static std::string message_type_array[2];
-    static std::string command_type_array[3];
+    static std::string command_type_array[4];
 };
 
 #endif
