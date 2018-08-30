@@ -10,9 +10,9 @@
 
 int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
+    std::cout << args[0] << std::endl;
     Packet * p;
     p = this->command_creator_functions[type](args);
-
     std::stringstream stream = p->Serialize();
 
     delete p;
@@ -84,9 +84,10 @@ void PacketCreator::ValidArgs(int recieved, int expected)
     }
 }
 
-PacketCreator::PacketCreator(IDataManager * dm, int max_chunk_size, int max_meta_size)
+PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
 {
-    this->data_manager = dm;
+    DataManager dm;
+    this->data_manager = &dm;
     this->max_chunk_size = max_chunk_size;
     this->max_meta_size = max_meta_size;
     this->command_creator_functions = 

@@ -1,5 +1,6 @@
 #include "CommandPacket.h"
 #include <sstream>
+#include <iostream>
 
 std::stringstream CommandPacket::Serialize()
 {

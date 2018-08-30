@@ -3,18 +3,12 @@
 
 #include <string>
 #include <vector>
-#include "Packet.h"
-
-struct ParsingResult
-{
-    MessageType type;
-    std::vector<std::string> rest;
-};
+#include "PacketData.h"
 
 class ICommandParser
 {
 public:
-    virtual ParsingResult Parse(const std::string) = 0;
+    virtual PacketData Parse(const std::string) = 0;
 };
 
 #endif

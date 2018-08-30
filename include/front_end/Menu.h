@@ -1,22 +1,21 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "ICommunicatorCreator.h"
+#include "IFileTransferClient.h"
 #include "ICommandParser.h"
-#include "IDataPacker.h"
-#include "IDataManager.h"
 
 class Menu
 {
 public:
     void Start();
     Menu();
+    ~Menu();
 private:
-    ParsingResult ParseInput(const std::string);
-    ICommunicator * GetCommunicator();
+    void StartClient();
+    PacketData ParseInput(const std::string);
 
-    ICommunicatorCreator * factory;
     ICommandParser * parser;
+    IFileTransferClient * client;
 };
 
 #endif
