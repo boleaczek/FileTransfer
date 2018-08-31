@@ -22,7 +22,7 @@ void FileTransferClient::Stop()
     delete this->communicator;
 }
 
-std::string FileTransferClient::SendPacket(PacketData data)
+PacketData FileTransferClient::SendPacket(PacketData data)
 {
     if(data.type == MessageType::command)
     {   
@@ -36,9 +36,8 @@ std::string FileTransferClient::SendPacket(PacketData data)
         std::vector<std::tuple<char*, int>> packets = this->helpers.GetFilePackets(data.args[0]);
         this->helpers.SendFile(this->communicator, packets);
     }
-    
     PacketData pd = this->helpers.Recieve(this->communicator);
-    return std::to_string(pd.command);
+    return pd;
 }
 
 FileTransferClient::FileTransferClient()

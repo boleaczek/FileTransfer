@@ -8,16 +8,18 @@ PacketData CommandParser::Parse(const std::string input)
 {
     PacketData res;
     std::vector<std::string> split = SplitString(input);
-    int args_start = 1;
-    res.type = MessageType(StringToEnumNumber::StringToMessageType(split[0]));
-
-    if(res.type == MessageType::command)
+    int command = StringToEnumNumber::StringToCommandType(split[0]);
+    if(command == -1)
     {
-        args_start = 2;
-        res.command = CommandType(StringToEnumNumber::StringToCommandType(split[1]));
+        res.type = MessageType::file;
+    }
+    else
+    {
+        res.type = MessageType::command;
+        res.command = CommandType(command);
     }
 
-    res.args = ExtractRest(split, args_start);
+    res.args = ExtractRest(split, 1);
     
     return res;
 }

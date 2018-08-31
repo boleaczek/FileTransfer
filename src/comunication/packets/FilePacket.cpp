@@ -8,7 +8,9 @@ std::stringstream FilePacket::Serialize()
     std::stringstream stream = Packet::Serialize();
     stream.write(reinterpret_cast<const char*>(&this->bytes_sent), sizeof(this->bytes_sent));
     stream.write(reinterpret_cast<const char*>(&this->bytes_total), sizeof(this->bytes_total));
-    stream.write(this->bytes, this->bytes_sent);
+    std::string temp;
+    temp.assign(this->bytes);
+    stream.write(temp.c_str(), this->bytes_sent);
     
     return stream;
 }
@@ -16,7 +18,6 @@ std::stringstream FilePacket::Serialize()
 Packet * FilePacket::Deserialize(std::stringstream & stream)
 {
     FilePacket * packet = new FilePacket;
-    packet->type = MessageType(LoadIntFromStream(stream));
     packet->bytes_sent = LoadIntFromStream(stream);
     packet->bytes_total = LoadIntFromStream(stream);
     

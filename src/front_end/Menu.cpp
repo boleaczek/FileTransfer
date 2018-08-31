@@ -1,6 +1,8 @@
 #include "Menu.h"
 #include "FileTransferClient.h"
 #include "CommandParser.h"
+#include "PacketData.h"
+#include "StringToEnumNumber.h"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -10,17 +12,28 @@
 void Menu::Start()
 {
     StartClient();
-
+    std::cout << "Connected to server" << std::endl;
     std::string input;
     std::getline(std::cin, input);
     while(input != "exit")
     {   
         PacketData pd = this->parser->Parse(input);
-        this->client->SendPacket(pd);
+        PacketData response = this->client->SendPacket(pd);
+        PrintResponse(response);
         std::getline(std::cin, input);
     }
     client->Stop();
     delete client;
+}
+
+void Menu::PrintResponse(PacketData pd)
+{
+    std::cout << "Response type: " << StringToEnumNumber::CommandTypeToString(pd.command) << std::endl;
+    std::cout << "Response args: " << std::endl;
+    for(int i = 0 ; i < pd.args.size(); i++)
+    {
+        std::cout << pd.args[i] << std::endl;
+    }
 }
 
 void Menu::StartClient()

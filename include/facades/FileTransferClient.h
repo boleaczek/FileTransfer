@@ -19,7 +19,7 @@ public:
     ~FileTransferClient();
     virtual void Start(std::string, std::string) override;
     virtual void Stop() override;
-    virtual std::string SendPacket(PacketData) override;
+    virtual PacketData SendPacket(PacketData) override;
 private:
     FileTransferHelpers helpers;
     ICommunicator * communicator;

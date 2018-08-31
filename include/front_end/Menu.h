@@ -13,6 +13,7 @@ public:
 private:
     void StartClient();
     PacketData ParseInput(const std::string);
+    void PrintResponse(PacketData);
 
     ICommandParser * parser;
     IFileTransferClient * client;

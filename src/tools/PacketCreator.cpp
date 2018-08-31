@@ -25,20 +25,21 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
     char * bytes, * chunk;
     int length = this->data_manager->ReadData(filename, bytes);
     int bytes_left = length, cursor = 0;
-
+    
     int to_write = GetChunkSize(this->max_chunk_size, bytes_left);
 
     while(bytes_left > 0)
     {
         char * chunk = GetChunk(bytes, cursor, to_write);
-
+        
         Packet * packet = new FilePacket(chunk, to_write, length);
         char * packet_bytes;
+        
         std::stringstream stream = packet->Serialize();
-        int bytes_length = GetBytesFromStream(stream, bytes);
+        int bytes_length = GetBytesFromStream(stream, packet_bytes);
 
         vec.push_back(std::tuple<char*, int>(packet_bytes, bytes_length));
-
+        
         delete packet;
         delete[] chunk;
 
@@ -46,7 +47,7 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
         cursor += to_write;
         to_write = GetChunkSize(this->max_chunk_size, bytes_left);
     }
-
+    
     delete[] bytes;
 
     return vec;
@@ -85,8 +86,7 @@ void PacketCreator::ValidArgs(int recieved, int expected)
 
 PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
 {
-    DataManager dm;
-    this->data_manager = &dm;
+    this->data_manager = new DataManager;
     this->max_chunk_size = max_chunk_size;
     this->max_meta_size = max_meta_size;
     this->command_creator_functions = 

@@ -3,7 +3,6 @@
 #include "PacketCreator.h"
 #include "PacketExtractor.h"
 #include "algorithm"
-#include "iostream"
 
 int FileTransferHelpers::GetCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
@@ -19,7 +18,7 @@ void FileTransferHelpers::SendFile(ICommunicator * handle, std::vector<std::tupl
 {
     for(int i = 0; i < packets.size(); i++)
     {
-        handle->Send(std::get<0>(packets[i]), std::get<1>(packets[1]));
+        handle->Send(std::get<0>(packets[i]), 32);
         delete std::get<0>(packets[i]);
     }
 }
@@ -32,9 +31,7 @@ void FileTransferHelpers::SendCommand(ICommunicator * handle, char * bytes, int 
 PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_size)
 {
     char * bytes;
-    
     handle->Recieve(bytes, max_packet_size);
-    
     Packet * packet = this->packet_extractor->ExtractPacket(bytes);
 
     PacketData result;
@@ -45,7 +42,6 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
         CommandPacket * command_packet = static_cast<CommandPacket *>(packet);
         result.args = command_packet->args;
         result.command = command_packet->command;
-        
         return result;
     }
     else if(packet->type == MessageType::file)
@@ -57,12 +53,14 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
     }
 }
 
-void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * initial,int max_packet_size)
+void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * initial, int max_packet_size)
 {
-    int how_much = static_cast<FilePacket *>(initial)->bytes_total;
+    FilePacket * initial_fp = static_cast<FilePacket *>(initial);
+    int how_much = initial_fp->bytes_total;
     int cursor = 0;
-    
     char * file = new char[how_much];
+    std::copy(initial_fp->bytes, initial_fp->bytes + initial_fp->bytes_sent, file);
+    cursor += initial_fp->bytes_sent;
     
     while(cursor < how_much)
     {
@@ -77,7 +75,6 @@ void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * in
 
         delete[] bytes;
     }
-
     this->data_manager->WriteData("new_file", file, how_much);
 }
 

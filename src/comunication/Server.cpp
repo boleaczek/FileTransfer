@@ -1,8 +1,6 @@
 #include "Server.h"
 #include <unistd.h>
 #include <errno.h>
-#include <iostream>
-#include <string.h>
 
 int Server::GetSocketFileDescriptor(const addrinfo * servinfo)
 {

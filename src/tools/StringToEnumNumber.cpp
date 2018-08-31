@@ -16,6 +16,16 @@ int StringToEnumNumber::StringToCommandType(const std::string message_string)
     return GetEnum(message_string, command_type_array, 4);
 }
 
+std::string StringToEnumNumber::MessageTypeToString(const int type)
+{
+    return message_type_array[type];
+}
+
+std::string StringToEnumNumber::CommandTypeToString(const int type)
+{
+    return command_type_array[type];
+}
+
 int StringToEnumNumber::GetEnum(const std::string message_string, const std::string type_array[], int n)
 {
     for(int i = 0; i < n; i++)

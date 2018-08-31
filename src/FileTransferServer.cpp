@@ -5,19 +5,21 @@
 void FileTransferServer::Start()
 {
     this->server->Start();
+    this->server->AcceptConnection();
     while(true)
     {
-        this->server->AcceptConnection();
-
         char * bytes;
-        PacketData pd = this->helpers.Recieve(this->server, max_packet_size);
+        PacketData pd = this->helpers.Recieve(this->server, this->max_packet_size);
         
         if(pd.type == MessageType::command)
         {
             this->command_handlers[pd.command](pd.args);
         }
-        
-        this->server->CloseConnection();
+        else
+        {
+            std::vector<std::string> args;
+            this->command_handlers[CommandType::ping](args);
+        }
     }
     this->server->Stop();
 }

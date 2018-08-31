@@ -1,6 +1,5 @@
 #include "CommandPacket.h"
 #include <sstream>
-#include <iostream>
 
 std::stringstream CommandPacket::Serialize()
 {
@@ -29,7 +28,7 @@ Packet * CommandPacket::Deserialize(std::stringstream & stream)
     CommandPacket * packet = new CommandPacket;
     
     packet->command = CommandType(Packet::LoadIntFromStream(stream));
-    std::cout << packet->command << std::endl;
+    
     int size = Packet::LoadIntFromStream(stream);
     
     char * char_arg;
