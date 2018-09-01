@@ -11,7 +11,7 @@
 class FileTransferServer
 {
 public:
-    FileTransferServer(std::string, std::string, int=32);
+    FileTransferServer(std::string, std::string, int=64);
     ~FileTransferServer();
     void Start();
 private:

@@ -8,19 +8,18 @@
 #include <string.h>
 #include <errno.h>
 
-
 void Menu::Start()
 {
     StartClient();
     std::cout << "Connected to server" << std::endl;
     std::string input;
-    std::getline(std::cin, input);
     while(input != "exit")
     {   
-        PacketData pd = this->parser->Parse(input);
-        PacketData response = this->client->SendPacket(pd);
-        PrintResponse(response);
         std::getline(std::cin, input);
+        PacketData pd = this->parser->Parse(input);
+        this->client->SendPacket(pd);
+        PacketData response = this->client->Recieve();
+        PrintResponse(response);
     }
     client->Stop();
     delete client;

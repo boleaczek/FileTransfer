@@ -9,6 +9,7 @@ PacketData CommandParser::Parse(const std::string input)
     PacketData res;
     std::vector<std::string> split = SplitString(input);
     int command = StringToEnumNumber::StringToCommandType(split[0]);
+    
     if(command == -1)
     {
         res.type = MessageType::file;

@@ -10,7 +10,9 @@ enum CommandType
     remove_file,
     move,
     list,
-    ping
+    ping,
+    response,
+    end_connection
 };
 
 struct CommandPacket : public Packet

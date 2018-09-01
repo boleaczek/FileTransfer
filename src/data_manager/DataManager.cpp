@@ -1,5 +1,6 @@
 #include "DataManager.h"
 #include <cstring>
+#include <iostream>
 
 int DataManager::ReadData(const std::string fileName, char * & bytes)
 {
@@ -10,7 +11,9 @@ int DataManager::ReadData(const std::string fileName, char * & bytes)
 
     file.seekg(0, file.beg);
     bytes = new char[size];
+
     file.read(bytes, size);
+
     file.close();
 
     return (int)size;

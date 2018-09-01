@@ -12,7 +12,7 @@
 class PacketCreator : public IPacketCreator
 {
 public:
-    PacketCreator(int=16, int=16);
+    PacketCreator(int=32, int=32);
     virtual int CreateCommandPacket(CommandType, std::vector<std::string> args, char * &) override;
     virtual std::vector<std::tuple<char*,int>> CreateFilePackets(std::string) override;
 private:

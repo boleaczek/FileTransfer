@@ -36,7 +36,7 @@ int Packet::CharPtrToInt(char * bytes, bool little_endian)
 
     for (int n = start; n >= end; n += step)
     {
-        result = (result << 8) + bytes[n];
+        result = (result << 8) + (unsigned char)bytes[n];
     }
 
     return result;

@@ -6,7 +6,7 @@
 class PacketExtractor : public IPackeExtractor
 {
 public:
-    PacketExtractor(int=32);
+    PacketExtractor(int=64);
     virtual Packet * ExtractPacket(char *) override;
 private:
     int packet_size;

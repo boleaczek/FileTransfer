@@ -20,7 +20,7 @@ public:
     std::vector<std::tuple<char*,int>> GetFilePackets(std::string);
     void SendFile(ICommunicator *, std::vector<std::tuple<char*, int>>);
     void SendCommand(ICommunicator *, char *, int);
-    PacketData Recieve(ICommunicator *, int=550);
+    PacketData Recieve(ICommunicator *, int=64);
 private:
     void RecieveFilePackets(ICommunicator *, Packet *, int);
     

@@ -1,12 +1,10 @@
 #include "PacketCreator.h"
 #include "DataManager.h"
 #include <cstring>
-#include <iostream>
 #include <strstream>
 #include <string>
 #include <algorithm>
-#include <string.h>
-#include <errno.h>
+#include <iostream>
 
 int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
@@ -24,6 +22,7 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
     std::vector<std::tuple<char*,int>> vec;
     char * bytes, * chunk;
     int length = this->data_manager->ReadData(filename, bytes);
+    
     int bytes_left = length, cursor = 0;
     
     int to_write = GetChunkSize(this->max_chunk_size, bytes_left);
@@ -31,10 +30,10 @@ std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string 
     while(bytes_left > 0)
     {
         char * chunk = GetChunk(bytes, cursor, to_write);
-        
-        Packet * packet = new FilePacket(chunk, to_write, length);
+
+        Packet * packet = new FilePacket(chunk, to_write, length, filename);
+
         char * packet_bytes;
-        
         std::stringstream stream = packet->Serialize();
         int bytes_length = GetBytesFromStream(stream, packet_bytes);
 
@@ -63,10 +62,11 @@ int PacketCreator::GetBytesFromStream(std::stringstream & stream, char * & bytes
     std::string temp = stream.str();
 
     int padding = (this->max_chunk_size + this->max_meta_size) - (temp.length() + 1);
-    bytes = new char[(temp.length() + 1) + padding];
+    int total_size = temp.length() + padding + 1;
+    bytes = new char[total_size];
     std::copy(temp.c_str(), temp.c_str() + temp.length() + 1, bytes);
 
-    return temp.length();
+    return total_size;
 }
 
 char * PacketCreator::GetChunk(char * data, int start, int how_much)
@@ -117,6 +117,20 @@ PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
                 {
                     this->ValidArgs(args.size(), 0);
                     return new CommandPacket(CommandType::ping, args);
+                }
+            },
+            {CommandType::response,
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 1);
+                    return new CommandPacket(CommandType::response, args);
+                }
+            },
+            {CommandType::end_connection,
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 0);
+                    return new CommandPacket(CommandType::end_connection, args);
                 }
             }
         };

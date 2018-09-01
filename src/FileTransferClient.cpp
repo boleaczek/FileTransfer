@@ -4,7 +4,6 @@
 #include "PacketCreator.h"
 #include "PacketExtractor.h"
 #include "ICommunicator.h"
-#include <iostream>
 
 void FileTransferClient::Start(std::string ip, std::string port)
 {
@@ -22,7 +21,7 @@ void FileTransferClient::Stop()
     delete this->communicator;
 }
 
-PacketData FileTransferClient::SendPacket(PacketData data)
+void FileTransferClient::SendPacket(PacketData data)
 {
     if(data.type == MessageType::command)
     {   
@@ -36,8 +35,11 @@ PacketData FileTransferClient::SendPacket(PacketData data)
         std::vector<std::tuple<char*, int>> packets = this->helpers.GetFilePackets(data.args[0]);
         this->helpers.SendFile(this->communicator, packets);
     }
-    PacketData pd = this->helpers.Recieve(this->communicator);
-    return pd;
+}
+
+PacketData FileTransferClient::Recieve()
+{
+    return this->helpers.Recieve(this->communicator);
 }
 
 FileTransferClient::FileTransferClient()
