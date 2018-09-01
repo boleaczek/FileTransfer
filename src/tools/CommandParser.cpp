@@ -1,7 +1,6 @@
 #include "CommandParser.h"
 #include "StringToEnumNumber.h"
 #include <iterator>
-#include <iostream>
 #include <sstream>
 
 PacketData CommandParser::Parse(const std::string input)

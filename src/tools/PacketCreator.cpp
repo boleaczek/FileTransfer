@@ -4,7 +4,6 @@
 #include <strstream>
 #include <string>
 #include <algorithm>
-#include <iostream>
 
 int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
