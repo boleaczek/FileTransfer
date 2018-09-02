@@ -12,32 +12,35 @@ int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string
     std::stringstream stream = p->Serialize();
     
     delete p;
+    int len = GetBytesFromStream(stream, packet);
 
-    return GetBytesFromStream(stream, packet);
+    stream.str(std::string());
+    stream.clear();
+    return len;
 }
 
 std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string filename)
 {
     std::vector<std::tuple<char*,int>> vec;
     char * bytes, * chunk;
+    
     int length = this->data_manager->ReadData(filename, bytes);
-    
     int bytes_left = length, cursor = 0;
-    
     int to_write = GetChunkSize(this->max_chunk_size, bytes_left);
 
     while(bytes_left > 0)
     {
+        
         char * chunk = GetChunk(bytes, cursor, to_write);
-
         Packet * packet = new FilePacket(chunk, to_write, length, filename);
-
         char * packet_bytes;
         std::stringstream stream = packet->Serialize();
-        int bytes_length = GetBytesFromStream(stream, packet_bytes);
-
-        vec.push_back(std::tuple<char*, int>(packet_bytes, bytes_length));
         
+        int bytes_length = GetBytesFromStream(stream, packet_bytes);
+        vec.push_back(std::tuple<char*, int>(packet_bytes, bytes_length));
+
+        stream.str(std::string());        
+        stream.clear();
         delete packet;
         delete[] chunk;
 
@@ -130,6 +133,13 @@ PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
                 {
                     this->ValidArgs(args.size(), 0);
                     return new CommandPacket(CommandType::end_connection, args);
+                }
+            },
+            {CommandType::get,
+                [=](std::vector<std::string> args)
+                {
+                    this->ValidArgs(args.size(), 1);
+                    return new CommandPacket(CommandType::get, args);
                 }
             }
         };

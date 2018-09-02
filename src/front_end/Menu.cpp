@@ -15,11 +15,19 @@ void Menu::Start()
     std::string input;
     while(input != "exit")
     {   
+        //std::cin.ignore();
         std::getline(std::cin, input);
         PacketData pd = this->parser->Parse(input);
         this->client->SendPacket(pd);
         PacketData response = this->client->Recieve();
-        PrintResponse(response);
+        if(response.type == MessageType::command)
+        {
+            PrintResponse(response);
+        }
+        else
+        {
+            std::cout << "Recieved new file." << std::endl;
+        }
     }
     client->Stop();
     delete client;

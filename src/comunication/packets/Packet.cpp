@@ -1,6 +1,7 @@
 #include "Packet.h"
 #include "FilePacket.h"
 #include "CommandPacket.h"
+#include <iostream>
 
 std::stringstream Packet::Serialize()
 {
@@ -15,6 +16,8 @@ Packet * Packet::Deserialize(std::stringstream & stream)
     Packet * packet;
     MessageType type = MessageType(LoadIntFromStream(stream));
     packet = deserialization_methods[type](stream);
+    stream.clear();
+    stream.str(std::string());
     packet->type = type;
     return packet;
 }

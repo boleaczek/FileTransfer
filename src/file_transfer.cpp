@@ -33,16 +33,5 @@ int main()
     {
         Menu m;
         m.Start();
-    }
-
-    // FilePacket fp;
-    // DataManager dm;
-    // fp.bytes_total = dm.ReadData("test.png", fp.bytes);
-    // fp.bytes_sent = fp.bytes_total;
-    // Packet * p = &fp;
-    // p->type = MessageType::file;
-    // stringstream ss = p->Serialize();
-    // Packet * p1 = Packet::Deserialize(ss);
-    // FilePacket * fp2 = static_cast<FilePacket *>(p1);
-    // dm.WriteData("test1.png", fp2->bytes, fp2->bytes_total);
+    } 
 }

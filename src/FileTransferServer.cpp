@@ -12,9 +12,7 @@ void FileTransferServer::Start()
         CommandType stop;
         while(stop != CommandType::end_connection)
         {
-            char * bytes;
             PacketData pd = this->helpers.Recieve(this->server, this->max_packet_size);
-            
             if(pd.type == MessageType::command)
             {
                 this->command_handlers[pd.command](pd.args);
@@ -26,6 +24,7 @@ void FileTransferServer::Start()
                 this->command_handlers[CommandType::ping](args);
             }
         }
+        
         this->server->CloseConnection();
     }
     this->server->Stop();
@@ -51,12 +50,18 @@ FileTransferServer::FileTransferServer(std::string ip, std::string port, int max
                 HandleCommand(CommandType::ping, args);
             }
         },
-        {CommandType::end_connection, [=](std::vector<std::string>)
+        {CommandType::end_connection, [=](std::vector<std::string> args)
             {
                 std::vector<std::string> response_args;
                 response_args.push_back("Goodbye");
                 HandleCommand(CommandType::response, response_args);
                 this->server->CloseConnection();
+            }
+        },
+        {CommandType::get, [=](std::vector<std::string> args)
+            {
+                std::vector<std::tuple<char*, int>> file_packets = this->helpers.GetFilePackets(args[0]);
+                this->helpers.SendFile(this->server, file_packets);
             }
         }
     };

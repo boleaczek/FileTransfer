@@ -14,7 +14,7 @@ std::stringstream CommandPacket::Serialize()
     
     for(int i = 0; i < this->args.size(); i++)
     {
-        int length = args[i].length();
+        int length = args[i].length() + 1;
         ss.write(reinterpret_cast<const char*>(&length)
             , sizeof(length));
         ss.write(args[i].c_str(), length);

@@ -33,7 +33,6 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
     char * bytes;
     handle->Recieve(bytes, max_packet_size);
     Packet * packet = this->packet_extractor->ExtractPacket(bytes);
-
     PacketData result;
     result.type = packet->type;
 
@@ -47,7 +46,6 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
     else if(packet->type == MessageType::file)
     {
         result.type = MessageType::file;
-        result.args.push_back("Recieved new file.");
         RecieveFilePackets(handle, packet, max_packet_size);
         return result;
     }
@@ -58,7 +56,7 @@ void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * in
     
     FilePacket * initial_fp = static_cast<FilePacket *>(initial);
     int how_much = initial_fp->bytes_total;
-    
+
     int cursor = 0;
     char * file = new char[how_much];
     
@@ -73,7 +71,6 @@ void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * in
         FilePacket * fp = static_cast<FilePacket *>(p);
         
         std::copy(fp->bytes, fp->bytes + (fp->bytes_sent), file + cursor);
-
         cursor += fp->bytes_sent;
 
         delete[] bytes;

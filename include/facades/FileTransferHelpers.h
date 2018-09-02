@@ -23,7 +23,6 @@ public:
     PacketData Recieve(ICommunicator *, int=64);
 private:
     void RecieveFilePackets(ICommunicator *, Packet *, int);
-    
 
     IDataManager * data_manager;
     IPackeExtractor * packet_extractor;

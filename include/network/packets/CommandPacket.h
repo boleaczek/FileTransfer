@@ -12,7 +12,8 @@ enum CommandType
     list,
     ping,
     response,
-    end_connection
+    end_connection,
+    get
 };
 
 struct CommandPacket : public Packet
