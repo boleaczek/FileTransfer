@@ -1,7 +1,6 @@
 #include "FilePacket.h"
 #include "Packet.h"
 #include <sstream>
-#include <iostream>
 
 std::stringstream FilePacket::Serialize()
 {
@@ -29,8 +28,6 @@ Packet * FilePacket::Deserialize(std::stringstream & stream)
     stream.read(file_name_bytes, file_name_length);
     packet->file_name.assign(file_name_bytes);
     
-    std::cout << packet->file_name << std::endl;
-
     packet->bytes_sent = LoadIntFromStream(stream);
     packet->bytes_total = LoadIntFromStream(stream);
     packet->bytes = new char[packet->bytes_sent];

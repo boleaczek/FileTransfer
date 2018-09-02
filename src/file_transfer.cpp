@@ -1,35 +1,21 @@
 #include <string>
-#include <cstring>
-#include <vector>
-#include <strstream>
-#include <algorithm>
-#include <iostream>
-#include <errno.h>
-#include <string.h>
-#include <string>
-#include <tuple>
-#include "PacketCreator.h"
-#include "Packet.h"
-#include "CommandPacket.h"
-#include "DataManager.h"
-#include "PacketExtractor.h"
-#include "Menu.h"
-#include "Server.h"
-#include "Client.h"
-#include "CommandParser.h"
 #include "FileTransferServer.h"
-using namespace std;
+#include "Menu.h"
+#include <iostream>
 
-int main()
+int main(int argc, char * argv[])
 {
-    string s_or_c;
-    getline(cin, s_or_c);
-    if(s_or_c == "1")
+    std::string mode = argv[1];
+    if(mode == "server")
     {
-        FileTransferServer server("127.0.0.1", "3000");
+        std::string addres, port;
+        addres.assign(argv[2]);
+        port.assign(argv[3]);
+        std::cout << "Running server on: " << addres << ":" << port << std::endl;
+        FileTransferServer server(addres, port);
         server.Start();
     }
-    else
+    else if(mode == "client")
     {
         Menu m;
         m.Start();
