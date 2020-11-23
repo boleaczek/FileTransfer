@@ -12,7 +12,6 @@ public:
     Menu();
 private:
     void StartClient();
-    PacketData ParseInput(const std::string);
     void PrintResponse(const PacketData&);
 
     std::unique_ptr<ICommandParser> parser;
