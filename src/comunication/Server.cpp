@@ -27,26 +27,26 @@ void Server::AcceptConnection()
 {
     sockaddr_in connection_addres;
     socklen_t size_of_connection_addres = sizeof(connection_addres);
-    listen(this->socket_file_descriptor, 1);
-    this->connected_socket_file_descriptor = accept(this->socket_file_descriptor, 
+    listen(socket_file_descriptor, 1);
+    connected_socket_file_descriptor = accept(socket_file_descriptor, 
         (sockaddr *) &connection_addres, 
         &size_of_connection_addres);
 }
 
 void Server::Send(const char * bytes, int size)
 {
-    send(this->connected_socket_file_descriptor, bytes, size, 0);
+    send(connected_socket_file_descriptor, bytes, size, 0);
 }
 
 void Server::CloseConnection()
 {
-    close(this->connected_socket_file_descriptor);
+    close(connected_socket_file_descriptor);
 }
 
 int Server::Recieve(char * & bytes, int expected_size)
 {
     bytes = new char[expected_size];
-    auto size = recv(this->connected_socket_file_descriptor, bytes, expected_size, 0);
+    auto size = recv(connected_socket_file_descriptor, bytes, expected_size, 0);
     return size;
 }
 
