@@ -3,6 +3,7 @@
 #include "CommandParser.h"
 #include "PacketData.h"
 #include "StringToEnumNumber.h"
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -36,9 +37,14 @@ void Menu::PrintResponse(PacketData pd)
 {
     std::cout << "Response type: " << StringToEnumNumber::CommandTypeToString(pd.command) << std::endl;
     std::cout << "Response args: " << std::endl;
-    for(int i = 0 ; i < pd.args.size(); i++)
+
+    std::for_each(pd.args.cbegin(), pd.args.cend(), 
+        [](const auto arg) {
+            std::cout << arg << std::endl;
+        });
+    for(auto arg = 0; arg < pd.args.size(); arg++)
     {
-        std::cout << pd.args[i] << std::endl;
+        std::cout << pd.args[arg] << std::endl;
     }
 }
 
