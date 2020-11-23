@@ -16,7 +16,6 @@ void Menu::Start()
     std::string input;
     while(input != "exit")
     {   
-        //std::cin.ignore();
         std::getline(std::cin, input);
         auto pd = parser->Parse(input);
         client->SendPacket(pd);
