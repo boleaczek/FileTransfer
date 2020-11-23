@@ -5,15 +5,14 @@
 
 int Server::GetSocketFileDescriptor(const addrinfo * servinfo)
 {
-    int socket_fd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+    auto socket_fd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 
     if(socket_fd == -1)
     {
         return -1;
     }
 
-    int optval;
-    optval = 1;
+    auto optval = 1;
 
     if(setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1
         || bind(socket_fd, servinfo->ai_addr, servinfo->ai_addrlen) == -1)
@@ -47,7 +46,7 @@ void Server::CloseConnection()
 int Server::Recieve(char * & bytes, int expected_size)
 {
     bytes = new char[expected_size];
-    int size = recv(this->connected_socket_file_descriptor, bytes, expected_size, 0);
+    auto size = recv(this->connected_socket_file_descriptor, bytes, expected_size, 0);
     return size;
 }
 
