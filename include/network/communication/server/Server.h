@@ -1,5 +1,4 @@
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once
 
 #include "AbstractCommunicator.h"
 #include "IServer.h"
@@ -22,5 +21,3 @@ private:
     int connected_socket_file_descriptor;
     std::unique_ptr<ICommunicator> communicator;
 };
-
-#endif
