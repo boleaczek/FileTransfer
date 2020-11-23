@@ -17,9 +17,9 @@ void Menu::Start()
     {   
         //std::cin.ignore();
         std::getline(std::cin, input);
-        PacketData pd = this->parser->Parse(input);
+        auto pd = parser->Parse(input);
         client->SendPacket(pd);
-        PacketData response = this->client->Recieve();
+        auto response = client->Recieve();
         if(response.type == MessageType::command)
         {
             PrintResponse(response);
@@ -49,7 +49,7 @@ void Menu::StartClient()
     std::getline(std::cin, ip);
     std::cout << "Port: ";
     std::getline(std::cin, port);
-    this->client->Start(ip, port);
+    client->Start(ip, port);
 }
 
 Menu::Menu()
