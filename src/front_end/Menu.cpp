@@ -1,13 +1,14 @@
-#include "Menu.h"
-#include "FileTransferClient.h"
+#include <algorithm>
+#include <errno.h>
+#include <iostream>
+#include <string.h>
+#include <string>
+
 #include "CommandParser.h"
+#include "FileTransferClient.h"
+#include "Menu.h"
 #include "PacketData.h"
 #include "StringToEnumNumber.h"
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <string.h>
-#include <errno.h>
 
 void Menu::Start()
 {

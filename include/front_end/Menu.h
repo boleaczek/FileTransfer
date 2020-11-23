@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "IFileTransferClient.h"
 #include "ICommandParser.h"
+#include "IFileTransferClient.h"
 
 class Menu
 {
