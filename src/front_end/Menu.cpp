@@ -18,7 +18,7 @@ void Menu::Start()
         //std::cin.ignore();
         std::getline(std::cin, input);
         PacketData pd = this->parser->Parse(input);
-        this->client->SendPacket(pd);
+        client->SendPacket(pd);
         PacketData response = this->client->Recieve();
         if(response.type == MessageType::command)
         {
@@ -30,7 +30,6 @@ void Menu::Start()
         }
     }
     client->Stop();
-    delete client;
 }
 
 void Menu::PrintResponse(PacketData pd)
@@ -55,12 +54,6 @@ void Menu::StartClient()
 
 Menu::Menu()
 {
-    this->client = new FileTransferClient;
-    this->parser = new CommandParser;
-}
-
-Menu::~Menu()
-{
-    delete this->client;
-    delete this->parser;
+    client = std::make_unique<FileTransferClient>();
+    parser = std::make_unique<CommandParser>();
 }
