@@ -8,8 +8,9 @@
 class Menu
 {
 public:
-    void Start();
     Menu();
+
+    void Start();
 private:
     void StartClient();
     void PrintResponse(const PacketData&);
