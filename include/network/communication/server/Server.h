@@ -19,6 +19,7 @@ private:
     virtual int GetSocketFileDescriptor(const addrinfo *) override;
 
     int connected_socket_file_descriptor;
+    ICommunicator * communicator;
 };
 
 #endif

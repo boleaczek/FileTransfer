@@ -8,7 +8,6 @@ class IServer : public ICommunicator
 public:
     virtual void AcceptConnection() = 0;
     virtual void CloseConnection() = 0;
-    ICommunicator * communicator;
 };
 
 #endif
