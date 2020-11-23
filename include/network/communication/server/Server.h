@@ -1,9 +1,10 @@
 #pragma once
 
+#include <memory>
+#include <string>
+
 #include "AbstractCommunicator.h"
 #include "IServer.h"
-#include <string>
-#include <memory>
 
 class Server : public IServer, public AbstractCommunicator
 {
