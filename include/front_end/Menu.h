@@ -1,5 +1,4 @@
-#ifndef MENU_H
-#define MENU_H
+#pragma once
 
 #include "IFileTransferClient.h"
 #include "ICommandParser.h"
@@ -18,5 +17,3 @@ private:
     ICommandParser * parser;
     IFileTransferClient * client;
 };
-
-#endif
