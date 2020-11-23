@@ -33,7 +33,7 @@ void Menu::Start()
     client->Stop();
 }
 
-void Menu::PrintResponse(PacketData pd)
+void Menu::PrintResponse(const PacketData& pd)
 {
     std::cout << "Response type: " << StringToEnumNumber::CommandTypeToString(pd.command) << std::endl;
     std::cout << "Response args: " << std::endl;
@@ -42,10 +42,6 @@ void Menu::PrintResponse(PacketData pd)
         [](const auto arg) {
             std::cout << arg << std::endl;
         });
-    for(auto arg = 0; arg < pd.args.size(); arg++)
-    {
-        std::cout << pd.args[arg] << std::endl;
-    }
 }
 
 void Menu::StartClient()
