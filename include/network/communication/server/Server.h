@@ -4,6 +4,7 @@
 #include "AbstractCommunicator.h"
 #include "IServer.h"
 #include <string>
+#include <memory>
 
 class Server : public IServer, public AbstractCommunicator
 {
@@ -19,7 +20,7 @@ private:
     virtual int GetSocketFileDescriptor(const addrinfo *) override;
 
     int connected_socket_file_descriptor;
-    ICommunicator * communicator;
+    std::unique_ptr<ICommunicator> communicator;
 };
 
 #endif
