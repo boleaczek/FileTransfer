@@ -7,15 +7,15 @@
 
 void FileTransferClient::Start(std::string ip, std::string port)
 {
-    this->communicator = this->communicator_creator->BuildClient(ip, port);
+    communicator = communicator_creator->BuildClient(ip, port);
     communicator->Start();
 }
 
 void FileTransferClient::Stop()
 {
-    if(this->communicator != nullptr)
+    if(communicator != nullptr)
     {
-        this->communicator->Stop();
+        communicator->Stop();
     }
 }
 
@@ -24,29 +24,29 @@ void FileTransferClient::SendPacket(PacketData data)
     if(data.type == MessageType::command)
     {   
         char * packet;
-        int len = this->helpers.GetCommandPacket(data.command, data.args, packet);
-        this->helpers.SendCommand(this->communicator, packet, len);
+        int len = helpers.GetCommandPacket(data.command, data.args, packet);
+        helpers.SendCommand(communicator, packet, len);
         delete[] packet;
     }
     else if(data.type == MessageType::file)
     {
-        std::vector<std::tuple<char*, int>> packets = this->helpers.GetFilePackets(data.args[0]);
-        this->helpers.SendFile(this->communicator, packets);
+        std::vector<std::tuple<char*, int>> packets = helpers.GetFilePackets(data.args[0]);
+        helpers.SendFile(communicator, packets);
     }
 }
 
 PacketData FileTransferClient::Recieve()
 {
-    return this->helpers.Recieve(this->communicator);
+    return helpers.Recieve(communicator);
 }
 
 FileTransferClient::FileTransferClient()
 {
-    this->communicator_creator = new CommunicatorCreator();
+    communicator_creator = new CommunicatorCreator();
 }
 
 FileTransferClient::~FileTransferClient()
 {
-    this->Stop();
-    delete this->communicator_creator;
+    Stop();
+    delete communicator_creator;
 }
