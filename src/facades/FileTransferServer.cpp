@@ -4,46 +4,46 @@
 
 void FileTransferServer::Start()
 {
-    this->server->Start();
+    server->Start();
     
     while(true)
     {
-        this->server->AcceptConnection();
+        server->AcceptConnection();
         CommandType stop;
         while(stop != CommandType::end_connection)
         {
-            PacketData pd = this->helpers.Recieve(this->server, this->max_packet_size);
+            PacketData pd = helpers.Recieve(server, max_packet_size);
             if(pd.type == MessageType::command)
             {
-                this->command_handlers[pd.command](pd.args);
+                command_handlers[pd.command](pd.args);
                 stop = pd.command;
             }
             else
             {
                 std::vector<std::string> args;
-                this->command_handlers[CommandType::ping](args);
+                command_handlers[CommandType::ping](args);
             }
         }
         
-        this->server->CloseConnection();
+        server->CloseConnection();
     }
-    this->server->Stop();
+    server->Stop();
 }
 
 void FileTransferServer::HandleCommand(CommandType type, std::vector<std::string> args)
 {
     char * bytes;
-    int len = this->helpers.GetCommandPacket(type, args, bytes);
-    this->server->Send(bytes, len);
+    int len = helpers.GetCommandPacket(type, args, bytes);
+    server->Send(bytes, len);
     delete[] bytes;
 }
 
 FileTransferServer::FileTransferServer(std::string ip, std::string port, int max_packet_size)
 {
-    this->server = std::make_shared<Server>(ip, port);
-    this->max_packet_size = max_packet_size;
+    server = std::make_shared<Server>(ip, port);
+    max_packet_size = max_packet_size;
 
-    this->command_handlers = 
+    command_handlers = 
     {
         {CommandType::ping, [=](std::vector<std::string> args)
             {
@@ -55,13 +55,13 @@ FileTransferServer::FileTransferServer(std::string ip, std::string port, int max
                 std::vector<std::string> response_args;
                 response_args.push_back("Goodbye");
                 HandleCommand(CommandType::response, response_args);
-                this->server->CloseConnection();
+                server->CloseConnection();
             }
         },
         {CommandType::get, [=](std::vector<std::string> args)
             {
-                std::vector<std::tuple<char*, int>> file_packets = this->helpers.GetFilePackets(args[0]);
-                this->helpers.SendFile(this->server, file_packets);
+                std::vector<std::tuple<char*, int>> file_packets = helpers.GetFilePackets(args[0]);
+                helpers.SendFile(server, file_packets);
             }
         }
     };
