@@ -4,8 +4,8 @@
 
 AbstractCommunicator::AbstractCommunicator(const std::string addres, const std::string port)
 {
-    this->addres = addres;
-    this->port = port;
+    addres = addres;
+    port = port;
 }
 
 void AbstractCommunicator::Start()
@@ -19,8 +19,8 @@ void AbstractCommunicator::Start()
 
     for(addrinfo * p = servinfo; p != NULL; p = p->ai_next)
     {
-        this->socket_file_descriptor = GetSocketFileDescriptor(p);
-        if(this->socket_file_descriptor == -1)
+        socket_file_descriptor = GetSocketFileDescriptor(p);
+        if(socket_file_descriptor == -1)
         {
             continue;
         }
@@ -32,12 +32,12 @@ void AbstractCommunicator::Start()
 
 int AbstractCommunicator::GetInfo(const addrinfo & hints, addrinfo * & servinfo) 
 {
-    return getaddrinfo(this->addres.c_str(), this->port.c_str(), &hints, &servinfo);
+    return getaddrinfo(addres.c_str(), port.c_str(), &hints, &servinfo);
 }
 
 void AbstractCommunicator::Stop()
 {
-    close(this->socket_file_descriptor);
+    close(socket_file_descriptor);
 }
 
 addrinfo AbstractCommunicator::GetHints()

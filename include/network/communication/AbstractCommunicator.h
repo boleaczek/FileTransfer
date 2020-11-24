@@ -1,5 +1,4 @@
-#ifndef ABSTRACT_COMMUNICATOR_H
-#define ABSTRACT_COMMUNICATOR_H
+#pragma once
 
 #include <string>
 #include <netdb.h>
@@ -21,5 +20,3 @@ protected:
     std::string addres;
     int socket_file_descriptor;
 };
-
-#endif
