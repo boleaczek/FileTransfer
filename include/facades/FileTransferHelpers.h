@@ -1,5 +1,4 @@
-#ifndef FILE_TRANSFER_HELPERS_H
-#define FILE_TRANSFER_HELPERS_H
+#pragma once
 
 #include <memory>
 #include <string>
@@ -30,5 +29,3 @@ private:
     IPackeExtractor * packet_extractor;
     IPacketCreator * packet_creator;
 };
-
-#endif
