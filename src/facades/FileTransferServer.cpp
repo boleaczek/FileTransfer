@@ -1,3 +1,4 @@
+#include "CommunicatorCreator.h"
 #include "FileTransferHelpers.h"
 #include "FileTransferServer.h"
 #include "Server.h"
@@ -38,9 +39,9 @@ void FileTransferServer::HandleCommand(CommandType type, std::vector<std::string
     delete[] bytes;
 }
 
-FileTransferServer::FileTransferServer(std::string ip, std::string port, int max_packet_size)
+FileTransferServer::FileTransferServer(std::shared_ptr<IServer> server, int max_packet_size):
+    server(server)
 {
-    server = std::make_shared<Server>(ip, port);
     max_packet_size = max_packet_size;
 
     command_handlers = 
