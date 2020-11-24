@@ -3,11 +3,10 @@
 
 #include "AbstractCommunicator.h"
 
-AbstractCommunicator::AbstractCommunicator(const std::string addres, const std::string port)
-{
-    addres = addres;
-    port = port;
-}
+AbstractCommunicator::AbstractCommunicator(const std::string address, const std::string port):
+    addres(address),
+    port(port)
+{}
 
 void AbstractCommunicator::Start()
 {
