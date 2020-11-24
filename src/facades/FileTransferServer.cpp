@@ -1,4 +1,3 @@
-#include "CommunicatorCreator.h"
 #include "FileTransferHelpers.h"
 #include "FileTransferServer.h"
 #include "Server.h"
