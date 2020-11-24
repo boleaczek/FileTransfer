@@ -1,7 +1,8 @@
 #pragma once
 
-#include "AbstractCommunicator.h"
 #include <string>
+
+#include "AbstractCommunicator.h"
 
 class Client : public AbstractCommunicator
 {
