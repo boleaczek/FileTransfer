@@ -11,5 +11,3 @@ struct PacketData
     CommandType command;
     std::vector<std::string> args;
 };
-
-#endif
