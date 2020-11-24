@@ -24,13 +24,13 @@ void FileTransferClient::SendPacket(PacketData data)
     if(data.type == MessageType::command)
     {   
         char * packet;
-        int len = helpers.GetCommandPacket(data.command, data.args, packet);
+        auto len = helpers.GetCommandPacket(data.command, data.args, packet);
         helpers.SendCommand(communicator, packet, len);
         delete[] packet;
     }
     else if(data.type == MessageType::file)
     {
-        std::vector<std::tuple<char*, int>> packets = helpers.GetFilePackets(data.args[0]);
+        auto packets = helpers.GetFilePackets(data.args[0]);
         helpers.SendFile(communicator, packets);
     }
 }
