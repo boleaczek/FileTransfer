@@ -1,5 +1,4 @@
-#ifndef FILE_TRANSFER_FACADE_H
-#define FILE_TRANSFER_FACADE_H
+#pragma once
 
 #include <memory>
 #include <tuple>
@@ -28,5 +27,3 @@ private:
     std::shared_ptr<ICommunicator> communicator;
     std::unique_ptr<ICommunicatorCreator> communicator_creator;
 };
-
-#endif
