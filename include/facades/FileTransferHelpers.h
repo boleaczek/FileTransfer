@@ -1,16 +1,17 @@
 #ifndef FILE_TRANSFER_HELPERS_H
 #define FILE_TRANSFER_HELPERS_H
 
-#include <vector>
+#include <memory>
 #include <string>
 #include <tuple>
-#include <memory>
+#include <vector>
+
 #include "CommandPacket.h"
-#include "PacketData.h"
+#include "ICommunicator.h"
 #include "IDataManager.h"
 #include "IPacketCreator.h"
 #include "IPacketExtractor.h"
-#include "ICommunicator.h"
+#include "PacketData.h"
 
 class FileTransferHelpers
 {
