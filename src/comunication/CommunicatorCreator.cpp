@@ -1,5 +1,5 @@
-#include "CommunicatorCreator.h"
 #include "Client.h"
+#include "CommunicatorCreator.h"
 #include "Server.h"
 
 std::shared_ptr<ICommunicator> CommunicatorCreator::BuildClient(const std::string destination_ip, const std::string port)

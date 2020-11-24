@@ -2,9 +2,10 @@
 #define I_Communicator_CREATOR_H
 
 #include "ICommunicator.h"
-#include "IServer.h" 
-#include <string>
+#include "IServer.h"
+
 #include <memory>
+#include <string>
 
 class ICommunicatorCreator
 {

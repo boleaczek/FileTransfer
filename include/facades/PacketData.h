@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Packet.h"
 #include "CommandPacket.h"
-#include "vector"
+#include "Packet.h"
 #include "string"
+#include "vector"
 
 struct PacketData
 {
