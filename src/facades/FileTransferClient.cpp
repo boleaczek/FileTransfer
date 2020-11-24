@@ -17,8 +17,6 @@ void FileTransferClient::Stop()
     {
         this->communicator->Stop();
     }
-
-    delete this->communicator;
 }
 
 void FileTransferClient::SendPacket(PacketData data)

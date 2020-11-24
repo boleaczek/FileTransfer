@@ -1,6 +1,7 @@
 #ifndef FILE_TRANSFER_FACADE_H
 #define FILE_TRANSFER_FACADE_H
 
+#include <memory>
 #include <vector>
 #include <tuple>
 #include "Packet.h"
@@ -23,7 +24,7 @@ public:
     virtual PacketData Recieve() override;
 private:
     FileTransferHelpers helpers;
-    ICommunicator * communicator;
+    std::shared_ptr<ICommunicator> communicator;
     ICommunicatorCreator * communicator_creator;
 };
 

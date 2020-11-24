@@ -40,7 +40,7 @@ void FileTransferServer::HandleCommand(CommandType type, std::vector<std::string
 
 FileTransferServer::FileTransferServer(std::string ip, std::string port, int max_packet_size)
 {
-    this->server = new Server(ip, port);
+    this->server = std::make_shared<Server>(ip, port);
     this->max_packet_size = max_packet_size;
 
     this->command_handlers = 
@@ -65,9 +65,4 @@ FileTransferServer::FileTransferServer(std::string ip, std::string port, int max
             }
         }
     };
-}
-
-FileTransferServer::~FileTransferServer()
-{
-    delete this->server;
 }

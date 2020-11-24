@@ -14,7 +14,7 @@ std::vector<std::tuple<char*,int>> FileTransferHelpers::GetFilePackets(std::stri
     return this->packet_creator->CreateFilePackets(file_name);
 }
 
-void FileTransferHelpers::SendFile(ICommunicator * handle, std::vector<std::tuple<char*, int>> packets)
+void FileTransferHelpers::SendFile(std::shared_ptr<ICommunicator> handle, std::vector<std::tuple<char*, int>> packets)
 {
     for(int i = 0; i < packets.size(); i++)
     {
@@ -23,12 +23,12 @@ void FileTransferHelpers::SendFile(ICommunicator * handle, std::vector<std::tupl
     }
 }
 
-void FileTransferHelpers::SendCommand(ICommunicator * handle, char * bytes, int length)
+void FileTransferHelpers::SendCommand(std::shared_ptr<ICommunicator> handle, char * bytes, int length)
 {
     handle->Send(bytes, length);
 }
 
-PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_size)
+PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, int max_packet_size)
 {
     char * bytes;
     handle->Recieve(bytes, max_packet_size);
@@ -51,7 +51,7 @@ PacketData FileTransferHelpers::Recieve(ICommunicator * handle, int max_packet_s
     }
 }
 
-void FileTransferHelpers::RecieveFilePackets(ICommunicator * handle, Packet * initial, int max_packet_size)
+void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> handle, Packet * initial, int max_packet_size)
 {
     
     FilePacket * initial_fp = static_cast<FilePacket *>(initial);

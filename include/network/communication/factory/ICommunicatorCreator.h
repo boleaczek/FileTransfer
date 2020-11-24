@@ -4,12 +4,13 @@
 #include "ICommunicator.h"
 #include "IServer.h" 
 #include <string>
+#include <memory>
 
 class ICommunicatorCreator
 {
 public:
-    virtual ICommunicator * BuildClient(const std::string, const std::string) = 0;
-    virtual IServer * BuildServer(const std::string, const std::string) = 0;
+    virtual std::shared_ptr<ICommunicator> BuildClient(const std::string, const std::string) = 0;
+    virtual std::shared_ptr<IServer> BuildServer(const std::string, const std::string) = 0;
 };
 
 #endif
