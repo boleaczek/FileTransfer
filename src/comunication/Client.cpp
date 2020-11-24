@@ -1,7 +1,8 @@
-#include "Client.h"
 #include <string.h>
 #include <errno.h>
 #include <iostream>
+
+#include "Client.h"
 
 int Client::GetSocketFileDescriptor(const addrinfo * info)
 {

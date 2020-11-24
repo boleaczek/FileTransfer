@@ -1,9 +1,10 @@
 #ifndef ABSTRACT_COMMUNICATOR_H
 #define ABSTRACT_COMMUNICATOR_H
 
-#include "ICommunicator.h"
 #include <string>
 #include <netdb.h>
+
+#include "ICommunicator.h"
 
 class AbstractCommunicator: public ICommunicator
 {
