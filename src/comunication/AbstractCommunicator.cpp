@@ -1,6 +1,7 @@
-#include "AbstractCommunicator.h"
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
+
+#include "AbstractCommunicator.h"
 
 AbstractCommunicator::AbstractCommunicator(const std::string addres, const std::string port)
 {
