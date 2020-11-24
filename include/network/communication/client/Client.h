@@ -1,5 +1,4 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#pragma once
 
 #include "AbstractCommunicator.h"
 #include <string>
@@ -14,5 +13,3 @@ private:
     virtual int GetSocketFileDescriptor(const addrinfo *) override;
     std::string destination_addres;
 };
-
-#endif
