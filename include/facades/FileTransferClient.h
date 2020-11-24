@@ -2,16 +2,17 @@
 #define FILE_TRANSFER_FACADE_H
 
 #include <memory>
-#include <vector>
 #include <tuple>
-#include "Packet.h"
+#include <vector>
+
 #include "CommandPacket.h"
 #include "FileTransferHelpers.h"
-#include "IFileTransferClient.h"
 #include "ICommunicatorCreator.h"
 #include "IDataManager.h"
+#include "IFileTransferClient.h"
 #include "IPacketCreator.h"
 #include "IPacketExtractor.h"
+#include "Packet.h"
 
 class FileTransferClient : public IFileTransferClient
 {

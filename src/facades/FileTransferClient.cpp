@@ -1,9 +1,9 @@
-#include "FileTransferClient.h"
 #include "CommunicatorCreator.h"
 #include "DataManager.h"
+#include "FileTransferClient.h"
+#include "ICommunicator.h"
 #include "PacketCreator.h"
 #include "PacketExtractor.h"
-#include "ICommunicator.h"
 
 void FileTransferClient::Start(std::string ip, std::string port)
 {
