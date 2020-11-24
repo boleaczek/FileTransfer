@@ -1,5 +1,4 @@
-#ifndef PACKET_DATA_H
-#define PACKET_DATA_H
+#pragma once
 
 #include "Packet.h"
 #include "CommandPacket.h"
