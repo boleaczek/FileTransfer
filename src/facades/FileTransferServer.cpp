@@ -1,6 +1,6 @@
+#include "FileTransferHelpers.h"
 #include "FileTransferServer.h"
 #include "Server.h"
-#include "FileTransferHelpers.h"
 
 void FileTransferServer::Start()
 {

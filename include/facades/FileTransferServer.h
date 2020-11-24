@@ -1,12 +1,13 @@
 #ifndef FILE_TRANSFER_SERVER_H
 #define FILE_TRANSFER_SERVER_H
 
-#include "FileTransferHelpers.h"
-#include "IServer.h"
-#include <unordered_map>
 #include <functional>
 #include <string>
+#include <unordered_map>
 #include <vector>
+
+#include "FileTransferHelpers.h"
+#include "IServer.h"
 
 class FileTransferServer
 {
