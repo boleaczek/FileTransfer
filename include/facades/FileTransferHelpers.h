@@ -16,7 +16,6 @@ class FileTransferHelpers
 {
 public:
     FileTransferHelpers();
-    ~FileTransferHelpers();
     int GetCommandPacket(CommandType, std::vector<std::string>, char * &);
     std::vector<std::tuple<char*,int>> GetFilePackets(std::string);
     void SendFile(std::shared_ptr<ICommunicator>, std::vector<std::tuple<char*, int>>);
@@ -25,7 +24,7 @@ public:
 private:
     void RecieveFilePackets(std::shared_ptr<ICommunicator>, Packet *, int);
 
-    IDataManager * data_manager;
-    IPackeExtractor * packet_extractor;
-    IPacketCreator * packet_creator;
+    std::unique_ptr<IDataManager> data_manager;
+    std::unique_ptr<IPackeExtractor> packet_extractor;
+    std::unique_ptr<IPacketCreator> packet_creator;
 };

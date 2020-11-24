@@ -81,16 +81,8 @@ void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> hand
     delete initial_fp;
 }
 
-FileTransferHelpers::FileTransferHelpers()
-{
-    data_manager = new DataManager();
-    packet_creator = new PacketCreator();
-    packet_extractor = new PacketExtractor();
-}
-
-FileTransferHelpers::~FileTransferHelpers()
-{
-    delete data_manager;
-    delete packet_creator;
-    delete packet_extractor;
-}
+FileTransferHelpers::FileTransferHelpers() :
+    data_manager(std::make_unique<DataManager>()),
+    packet_creator(std::make_unique<PacketCreator>()),
+    packet_extractor(std::make_unique<PacketExtractor>())
+{}
