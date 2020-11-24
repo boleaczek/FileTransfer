@@ -25,7 +25,7 @@ public:
 private:
     FileTransferHelpers helpers;
     std::shared_ptr<ICommunicator> communicator;
-    ICommunicatorCreator * communicator_creator;
+    std::unique_ptr<ICommunicatorCreator> communicator_creator;
 };
 
 #endif

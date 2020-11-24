@@ -42,11 +42,10 @@ PacketData FileTransferClient::Recieve()
 
 FileTransferClient::FileTransferClient()
 {
-    communicator_creator = new CommunicatorCreator();
+    communicator_creator = std::make_unique<CommunicatorCreator>();
 }
 
 FileTransferClient::~FileTransferClient()
 {
     Stop();
-    delete communicator_creator;
 }
