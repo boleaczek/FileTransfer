@@ -6,12 +6,12 @@
 
 int FileTransferHelpers::GetCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
-    return this->packet_creator->CreateCommandPacket(type, args, packet);
+    return packet_creator->CreateCommandPacket(type, args, packet);
 }
 
 std::vector<std::tuple<char*,int>> FileTransferHelpers::GetFilePackets(std::string file_name)
 {
-    return this->packet_creator->CreateFilePackets(file_name);
+    return packet_creator->CreateFilePackets(file_name);
 }
 
 void FileTransferHelpers::SendFile(std::shared_ptr<ICommunicator> handle, std::vector<std::tuple<char*, int>> packets)
@@ -32,7 +32,7 @@ PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, i
 {
     char * bytes;
     handle->Recieve(bytes, max_packet_size);
-    Packet * packet = this->packet_extractor->ExtractPacket(bytes);
+    Packet * packet = packet_extractor->ExtractPacket(bytes);
     PacketData result;
     result.type = packet->type;
 
@@ -67,7 +67,7 @@ void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> hand
         char * bytes;
         int len = handle->Recieve(bytes, max_packet_size);
         
-        Packet * p = this->packet_extractor->ExtractPacket(bytes);
+        Packet * p = packet_extractor->ExtractPacket(bytes);
         FilePacket * fp = static_cast<FilePacket *>(p);
         
         std::copy(fp->bytes, fp->bytes + (fp->bytes_sent), file + cursor);
@@ -77,20 +77,20 @@ void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> hand
         delete p;
     }
     
-    this->data_manager->WriteData(initial_fp->file_name, file, how_much);
+    data_manager->WriteData(initial_fp->file_name, file, how_much);
     delete initial_fp;
 }
 
 FileTransferHelpers::FileTransferHelpers()
 {
-    this->data_manager = new DataManager();
-    this->packet_creator = new PacketCreator();
-    this->packet_extractor = new PacketExtractor();
+    data_manager = new DataManager();
+    packet_creator = new PacketCreator();
+    packet_extractor = new PacketExtractor();
 }
 
 FileTransferHelpers::~FileTransferHelpers()
 {
-    delete this->data_manager;
-    delete this->packet_creator;
-    delete this->packet_extractor;
+    delete data_manager;
+    delete packet_creator;
+    delete packet_extractor;
 }
