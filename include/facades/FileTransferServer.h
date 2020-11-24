@@ -1,5 +1,4 @@
-#ifndef FILE_TRANSFER_SERVER_H
-#define FILE_TRANSFER_SERVER_H
+#pragma once
 
 #include <functional>
 #include <string>
@@ -23,5 +22,3 @@ private:
     std::unordered_map<CommandType, 
         std::function<void (std::vector<std::string>)>> command_handlers;
 };
-
-#endif
