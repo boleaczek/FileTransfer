@@ -1,5 +1,4 @@
-#ifndef I_COMMUNICATOR_H
-#define I_COMMUNICATOR_H
+#pragma once
 
 class ICommunicator
 {
@@ -9,5 +8,3 @@ public:
     virtual int Recieve(char * &, int) = 0;
     virtual void Stop() = 0;
 };
-
-#endif

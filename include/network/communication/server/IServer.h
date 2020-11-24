@@ -1,5 +1,4 @@
-#ifndef ISERVER_H
-#define ISERVER_H
+#pragma once
 
 #include "ICommunicator.h"
 
@@ -9,5 +8,3 @@ public:
     virtual void AcceptConnection() = 0;
     virtual void CloseConnection() = 0;
 };
-
-#endif
