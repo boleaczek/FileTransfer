@@ -40,10 +40,9 @@ void FileTransferServer::HandleCommand(CommandType type, std::vector<std::string
 }
 
 FileTransferServer::FileTransferServer(std::shared_ptr<IServer> server, int max_packet_size):
-    server(server)
+    server(server),
+    max_packet_size(max_packet_size)
 {
-    max_packet_size = max_packet_size;
-
     command_handlers = 
     {
         {CommandType::ping, [=](std::vector<std::string> args)
