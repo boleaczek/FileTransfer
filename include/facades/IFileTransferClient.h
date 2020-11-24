@@ -1,8 +1,10 @@
 #ifndef I_FILE_TRANSFER_CLIENT_H
 #define I_FILE_TRANSFER_CLIENT_H
 
-#include "PacketData.h"
 #include <string>
+
+#include "PacketData.h"
+
 
 class IFileTransferClient
 {
