@@ -1,10 +1,8 @@
-#ifndef I_FILE_TRANSFER_CLIENT_H
-#define I_FILE_TRANSFER_CLIENT_H
+#pragma once
 
 #include <string>
 
 #include "PacketData.h"
-
 
 class IFileTransferClient
 {
@@ -14,5 +12,3 @@ public:
     virtual void SendPacket(PacketData) = 0;
     virtual PacketData Recieve() = 0;
 };
-
-#endif
