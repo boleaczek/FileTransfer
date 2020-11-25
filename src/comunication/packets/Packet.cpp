@@ -1,7 +1,8 @@
-#include "Packet.h"
-#include "FilePacket.h"
-#include "CommandPacket.h"
 #include <iostream>
+
+#include "CommandPacket.h"
+#include "FilePacket.h"
+#include "Packet.h"
 
 Packet::Packet(MessageType type) :
     type(type)
@@ -21,7 +22,7 @@ std::stringstream Packet::Serialize()
 Packet * Packet::Deserialize(std::stringstream & stream)
 {
     Packet * packet;
-    MessageType type = MessageType(LoadIntFromStream(stream));
+    auto type = MessageType(LoadIntFromStream(stream));
     packet = deserialization_methods[type](stream);
     stream.clear();
     stream.str(std::string());
@@ -32,10 +33,10 @@ Packet * Packet::Deserialize(std::stringstream & stream)
 int Packet::CharPtrToInt(char * bytes, bool little_endian)
 {
     
-    int result = 0;
-    int start = sizeof(result);
-    int end = 0;
-    int step = -1;
+    auto result = 0;
+    auto start = sizeof(result);
+    auto end = 0;
+    auto step = -1;
 
     if(!little_endian)
     {
@@ -44,7 +45,7 @@ int Packet::CharPtrToInt(char * bytes, bool little_endian)
         step = 1;
     }
 
-    for (int n = start; n >= end; n += step)
+    for (auto n = start; n >= end; n += step)
     {
         result = (result << 8) + (unsigned char)bytes[n];
     }
@@ -54,9 +55,9 @@ int Packet::CharPtrToInt(char * bytes, bool little_endian)
 
 int Packet::LoadIntFromStream(std::stringstream & stream)
 {
-    char * bytes = new char[sizeof(int)];
+    auto bytes = new char[sizeof(int)];
     stream.read(bytes, sizeof(int));
-    int result = CharPtrToInt(bytes, true);
+    auto result = CharPtrToInt(bytes, true);
     delete[] bytes;
     return result;
 }

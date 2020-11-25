@@ -1,9 +1,8 @@
-#ifndef PACKET_H
-#define PACKET_H
+#pragma once
 
+#include <functional>
 #include <sstream>
 #include <unordered_map>
-#include <functional>
 
 enum MessageType 
 {
@@ -25,5 +24,3 @@ private:
     static std::unordered_map<MessageType
         , std::function<Packet *(std::stringstream &)>> deserialization_methods;
 };
-
-#endif
