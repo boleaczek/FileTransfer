@@ -4,12 +4,12 @@
 
 std::stringstream CommandPacket::Serialize()
 {
-    std::stringstream ss = Packet::Serialize();
+    auto ss = Packet::Serialize();
     
     ss.write(reinterpret_cast<const char*>(&this->command),
         sizeof(int));
     
-    int vector_size = args.size();
+    auto vector_size = args.size();
     ss.write(reinterpret_cast<const char*>(&vector_size),
         sizeof(int));
     
@@ -26,16 +26,16 @@ std::stringstream CommandPacket::Serialize()
 
 Packet * CommandPacket::Deserialize(std::stringstream & stream)
 {
-    CommandPacket * packet = new CommandPacket;
+    auto packet = new CommandPacket;
     
     packet->command = CommandType(Packet::LoadIntFromStream(stream));
     
-    int size = Packet::LoadIntFromStream(stream);
+    auto size = Packet::LoadIntFromStream(stream);
     
     char * char_arg;
     for(int i = 0; i < size; i++)
     {
-        int arg_length = Packet::LoadIntFromStream(stream);
+        auto arg_length = Packet::LoadIntFromStream(stream);
         
         std::string arg;
         char_arg = new char[arg_length];
