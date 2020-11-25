@@ -1,9 +1,9 @@
-#ifndef COMMAND_PACKET_H
-#define COMMAND_PACKET_H
+#pragma once
 
-#include "Packet.h"
 #include <string>
 #include <vector>
+
+#include "Packet.h"
 
 enum CommandType
 {
@@ -26,5 +26,3 @@ struct CommandPacket : public Packet
     virtual std::stringstream Serialize() override;
     static Packet * Deserialize(std::stringstream &);
 };
-
-#endif
