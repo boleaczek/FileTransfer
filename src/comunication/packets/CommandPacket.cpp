@@ -6,14 +6,14 @@ std::stringstream CommandPacket::Serialize()
 {
     auto ss = Packet::Serialize();
     
-    ss.write(reinterpret_cast<const char*>(&this->command),
+    ss.write(reinterpret_cast<const char*>(&command),
         sizeof(int));
     
     auto vector_size = args.size();
     ss.write(reinterpret_cast<const char*>(&vector_size),
         sizeof(int));
     
-    for(int i = 0; i < this->args.size(); i++)
+    for(int i = 0; i < args.size(); i++)
     {
         int length = args[i].length() + 1;
         ss.write(reinterpret_cast<const char*>(&length)

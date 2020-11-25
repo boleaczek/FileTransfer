@@ -6,13 +6,13 @@ std::stringstream FilePacket::Serialize()
 {
     std::stringstream stream = Packet::Serialize();
     
-    int file_name_length = this->file_name.length() + 1;
+    int file_name_length = file_name.length() + 1;
     
     stream.write(reinterpret_cast<const char*>(&file_name_length), sizeof(file_name_length));
-    stream.write(this->file_name.c_str(), file_name_length);
-    stream.write(reinterpret_cast<const char*>(&this->bytes_sent), sizeof(this->bytes_sent));
-    stream.write(reinterpret_cast<const char*>(&this->bytes_total), sizeof(this->bytes_total));
-    stream.write(this->bytes, this->bytes_sent);
+    stream.write(file_name.c_str(), file_name_length);
+    stream.write(reinterpret_cast<const char*>(&bytes_sent), sizeof(bytes_sent));
+    stream.write(reinterpret_cast<const char*>(&bytes_total), sizeof(bytes_total));
+    stream.write(bytes, bytes_sent);
     
     return stream;
 }
@@ -40,9 +40,9 @@ Packet * FilePacket::Deserialize(std::stringstream & stream)
 
 FilePacket::~FilePacket()
 {
-    if(this->bytes != nullptr)
+    if(bytes != nullptr)
     {
-        delete[] this->bytes;
+        delete[] bytes;
     }
 }
 
