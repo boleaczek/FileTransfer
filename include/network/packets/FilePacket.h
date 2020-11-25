@@ -1,5 +1,4 @@
-#ifndef FILE_PACKET_H
-#define FILE_PACKET_H
+#pragma once
 
 #include "Packet.h"
 
@@ -16,5 +15,3 @@ struct FilePacket : public Packet
     FilePacket(char *, int, int, std::string);
     FilePacket(){}
 };
-
-#endif

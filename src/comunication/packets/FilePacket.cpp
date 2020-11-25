@@ -1,6 +1,7 @@
+#include <sstream>
+
 #include "FilePacket.h"
 #include "Packet.h"
-#include <sstream>
 
 std::stringstream FilePacket::Serialize()
 {
