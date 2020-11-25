@@ -46,11 +46,10 @@ FilePacket::~FilePacket()
     }
 }
 
-FilePacket::FilePacket(char * bytes, int bytes_sent, int bytes_total, std::string file_name)
-{
-    this->file_name = file_name;
-    this->type = MessageType::file;
-    this->bytes = bytes;
-    this->bytes_total = bytes_total;
-    this->bytes_sent = bytes_sent;
-}
+FilePacket::FilePacket(char * bytes, int bytes_sent, int bytes_total, std::string file_name) :
+    Packet(MessageType::file),
+    bytes_total(bytes_total),
+    bytes_sent(bytes_sent),
+    bytes(bytes),
+    file_name(file_name)
+{}
