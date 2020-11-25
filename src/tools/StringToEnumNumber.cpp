@@ -1,37 +1,43 @@
+#include <algorithm>
+
 #include "StringToEnumNumber.h"
-#include "CommandPacket.h"
 
-std::string StringToEnumNumber::message_type_array[2] = {"file", "command"};
-std::string StringToEnumNumber::command_type_array[7] = {"remove", "move", "list", "ping", "response", "exit", "get"};
-
-int StringToEnumNumber::StringToMessageType(const std::string message_string)
+std::map<MessageType, std::string> StringToEnumNumber::message_type_array = {{MessageType::file, "file"}, {MessageType::command, "command"}};
+std::map<CommandType, std::string> StringToEnumNumber::command_type_array = 
 {
-    return GetEnum(message_string, message_type_array, message_types_n);
+    {CommandType::remove_file, "remove_file"},
+    {CommandType::move, "move"},
+    {CommandType::list, "list"},
+    {CommandType::ping, "ping"},
+    {CommandType::response, "response"},
+    {CommandType::end_connection, "end_connection"},
+    {CommandType::get, "get"}
+};
+
+MessageType StringToEnumNumber::StringToMessageType(const std::string & message_string)
+{
+    auto commandNumber = std::find_if(message_type_array.cbegin(), message_type_array.cend(),
+        [message_string](auto keyVal) -> bool {
+            return keyVal.second == message_string;
+        });
+    return commandNumber->first;
 }
 
-int StringToEnumNumber::StringToCommandType(const std::string message_string)
+CommandType StringToEnumNumber::StringToCommandType(const std::string & message_string)
 {
-    return GetEnum(message_string, command_type_array, command_types_n);
+    auto commandNumber = std::find_if(command_type_array.cbegin(), command_type_array.cend(),
+        [message_string](auto keyVal) -> bool {
+            return keyVal.second == message_string;
+        });
+    return commandNumber->first;
 }
 
-std::string StringToEnumNumber::MessageTypeToString(const int type)
+std::string StringToEnumNumber::MessageTypeToString(const MessageType type)
 {
     return message_type_array[type];
 }
 
-std::string StringToEnumNumber::CommandTypeToString(const int type)
+std::string StringToEnumNumber::CommandTypeToString(const CommandType type)
 {
     return command_type_array[type];
-}
-
-int StringToEnumNumber::GetEnum(const std::string message_string, const std::string type_array[], int n)
-{
-    for(int i = 0; i < n; i++)
-    {
-        if(type_array[i] == message_string)
-        {
-            return i;
-        }
-    }
-    return -1;
 }
