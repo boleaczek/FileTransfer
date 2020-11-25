@@ -19,9 +19,9 @@ std::stringstream Packet::Serialize()
     return stream;
 }
 
-Packet * Packet::Deserialize(std::stringstream & stream)
+std::shared_ptr<Packet> Packet::Deserialize(std::stringstream & stream)
 {
-    Packet * packet;
+    std::shared_ptr<Packet> packet;
     auto type = MessageType(LoadIntFromStream(stream));
     packet = deserialization_methods[type](stream);
     stream.clear();
@@ -63,7 +63,7 @@ int Packet::LoadIntFromStream(std::stringstream & stream)
 }
 
 std::unordered_map<MessageType
-        , std::function<Packet *(std::stringstream &)>> Packet::deserialization_methods =
+        , std::function<std::shared_ptr<Packet> (std::stringstream &)>> Packet::deserialization_methods =
         {
             {MessageType::file, FilePacket::Deserialize},
             {MessageType::command, CommandPacket::Deserialize}

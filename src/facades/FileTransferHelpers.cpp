@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "DataManager.h"
 #include "FileTransferHelpers.h"
 #include "PacketCreator.h"
@@ -32,13 +34,13 @@ PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, i
 {
     char * bytes;
     handle->Recieve(bytes, max_packet_size);
-    Packet * packet = packet_extractor->ExtractPacket(bytes);
+    auto packet = packet_extractor->ExtractPacket(bytes);
     PacketData result;
     result.type = packet->type;
 
     if(packet->type == MessageType::command)
     {
-        CommandPacket * command_packet = static_cast<CommandPacket *>(packet);
+        auto command_packet = std::dynamic_pointer_cast<CommandPacket>(packet);
         result.args = command_packet->args;
         result.command = command_packet->command;
         return result;
@@ -51,10 +53,10 @@ PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, i
     }
 }
 
-void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> handle, Packet * initial, int max_packet_size)
+void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> handle, std::shared_ptr<Packet> initial, int max_packet_size)
 {
     
-    FilePacket * initial_fp = static_cast<FilePacket *>(initial);
+    auto initial_fp = std::dynamic_pointer_cast<FilePacket>(initial);
     int how_much = initial_fp->bytes_total;
 
     int cursor = 0;
@@ -67,18 +69,16 @@ void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> hand
         char * bytes;
         int len = handle->Recieve(bytes, max_packet_size);
         
-        Packet * p = packet_extractor->ExtractPacket(bytes);
-        FilePacket * fp = static_cast<FilePacket *>(p);
+        auto p = packet_extractor->ExtractPacket(bytes);
+        auto fp = std::dynamic_pointer_cast<FilePacket>(p);
         
         std::copy(fp->bytes, fp->bytes + (fp->bytes_sent), file + cursor);
         cursor += fp->bytes_sent;
 
         delete[] bytes;
-        delete p;
     }
     
     data_manager->WriteData(initial_fp->file_name, file, how_much);
-    delete initial_fp;
 }
 
 FileTransferHelpers::FileTransferHelpers() :

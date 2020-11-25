@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Packet.h"
 
 struct FilePacket : public Packet
@@ -10,7 +12,7 @@ struct FilePacket : public Packet
     std::string file_name;
 
     virtual std::stringstream Serialize() override;
-    static Packet * Deserialize(std::stringstream&);
+    static std::shared_ptr<Packet> Deserialize(std::stringstream&);
     ~FilePacket();
     FilePacket(char *, int, int, std::string);
     FilePacket(){}

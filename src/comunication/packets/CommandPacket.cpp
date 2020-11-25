@@ -24,9 +24,9 @@ std::stringstream CommandPacket::Serialize()
     return ss;
 }
 
-Packet * CommandPacket::Deserialize(std::stringstream & stream)
+std::shared_ptr<Packet> CommandPacket::Deserialize(std::stringstream & stream)
 {
-    auto packet = new CommandPacket;
+    auto packet = std::make_shared<CommandPacket>();
     
     packet->command = CommandType(Packet::LoadIntFromStream(stream));
     

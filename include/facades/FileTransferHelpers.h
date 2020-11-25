@@ -22,7 +22,7 @@ public:
     void SendCommand(std::shared_ptr<ICommunicator>, char *, int);
     PacketData Recieve(std::shared_ptr<ICommunicator>, int=64);
 private:
-    void RecieveFilePackets(std::shared_ptr<ICommunicator>, Packet *, int);
+    void RecieveFilePackets(std::shared_ptr<ICommunicator>, std::shared_ptr<Packet>, int);
 
     std::unique_ptr<IDataManager> data_manager;
     std::unique_ptr<IPackeExtractor> packet_extractor;

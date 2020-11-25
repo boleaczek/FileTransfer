@@ -18,9 +18,9 @@ std::stringstream FilePacket::Serialize()
     return stream;
 }
 
-Packet * FilePacket::Deserialize(std::stringstream & stream)
+std::shared_ptr<Packet> FilePacket::Deserialize(std::stringstream & stream)
 {
-    auto packet = new FilePacket;
+    auto packet = std::make_shared<FilePacket>();
     
     auto file_name_length = LoadIntFromStream(stream);
     

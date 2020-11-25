@@ -4,11 +4,11 @@
 #include <errno.h>
 #include <string.h>
 
-Packet * PacketExtractor::ExtractPacket(char * bytes)
+std::shared_ptr<Packet> PacketExtractor::ExtractPacket(char * bytes)
 {
     std::stringstream stream;
     stream.write(bytes, this->packet_size);
-    Packet * p = Packet::Deserialize(stream);
+    std::shared_ptr<Packet> p = Packet::Deserialize(stream);
     stream.str(std::string());
     stream.clear();
     return p;

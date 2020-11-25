@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -24,5 +25,5 @@ struct CommandPacket : public Packet
     CommandPacket(){};
     CommandPacket(CommandType, std::vector<std::string>);
     virtual std::stringstream Serialize() override;
-    static Packet * Deserialize(std::stringstream &);
+    static std::shared_ptr<Packet> Deserialize(std::stringstream &);
 };
