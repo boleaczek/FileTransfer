@@ -49,9 +49,8 @@ Packet * CommandPacket::Deserialize(std::stringstream & stream)
     return packet;
 }
 
-CommandPacket::CommandPacket(CommandType command, std::vector<std::string> args)
-{
-    this->type = MessageType::command;
-    this->args = args;
-    this->command = command;
-};
+CommandPacket::CommandPacket(CommandType command, std::vector<std::string> args) :
+    Packet(MessageType::command),
+    args(args),
+    command(command)
+{}

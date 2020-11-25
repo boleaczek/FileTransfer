@@ -13,6 +13,8 @@ enum MessageType
 
 struct Packet
 {
+    Packet();
+    Packet(MessageType type);
     virtual std::stringstream Serialize();
     static Packet * Deserialize(std::stringstream &);
     static int CharPtrToInt(char *, bool);

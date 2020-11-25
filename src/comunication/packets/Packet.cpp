@@ -3,6 +3,13 @@
 #include "CommandPacket.h"
 #include <iostream>
 
+Packet::Packet(MessageType type) :
+    type(type)
+{}
+
+Packet::Packet()
+{}
+
 std::stringstream Packet::Serialize()
 {
     std::stringstream stream;
