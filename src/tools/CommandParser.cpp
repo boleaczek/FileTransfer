@@ -9,10 +9,17 @@ PacketData CommandParser::Parse(const std::string input)
     PacketData res;
     std::vector<std::string> split = SplitString(input);
 
-    CommandType command = StringToEnumNumber::StringToCommandType(split[0]);
+    int command = StringToEnumNumber::StringToCommandType(split[0]);
     
-    res.type = MessageType::command;
-    res.command = CommandType(command);
+    if(command == -1)
+    {
+        res.type = MessageType::file;
+    }
+    else
+    {
+        res.type = MessageType::command;
+        res.command = CommandType(command);
+    }
 
     res.args = ExtractRest(split, 1);
     

@@ -33,10 +33,10 @@ std::shared_ptr<Packet> Packet::Deserialize(std::stringstream & stream)
 int Packet::CharPtrToInt(char * bytes, bool little_endian)
 {
     
-    auto result = 0;
-    auto start = sizeof(result);
-    auto end = 0;
-    auto step = -1;
+    int result = 0;
+    int start = sizeof(result);
+    int end = 0;
+    int step = -1;
 
     if(!little_endian)
     {
@@ -45,7 +45,7 @@ int Packet::CharPtrToInt(char * bytes, bool little_endian)
         step = 1;
     }
 
-    for (auto n = start; n >= end; n += step)
+    for (int n = start; n >= end; n += step)
     {
         result = (result << 8) + (unsigned char)bytes[n];
     }

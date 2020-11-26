@@ -7,7 +7,7 @@ std::stringstream FilePacket::Serialize()
 {
     std::stringstream stream = Packet::Serialize();
     
-    auto file_name_length = file_name.length() + 1;
+    int file_name_length = file_name.length() + 1;
     
     stream.write(reinterpret_cast<const char*>(&file_name_length), sizeof(file_name_length));
     stream.write(file_name.c_str(), file_name_length);

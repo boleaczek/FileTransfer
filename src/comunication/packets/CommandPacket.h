@@ -6,7 +6,7 @@
 
 #include "Packet.h"
 
-enum class CommandType
+enum CommandType
 {
     remove_file,
     move,
