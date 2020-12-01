@@ -1,37 +1,44 @@
+#include <algorithm>
+
 #include "StringToEnumNumber.h"
 #include "CommandPacket.h"
 
-std::string StringToEnumNumber::message_type_array[2] = {"file", "command"};
-std::string StringToEnumNumber::command_type_array[7] = {"remove", "move", "list", "ping", "response", "exit", "get"};
+std::map<std::string, MessageType> StringToEnumNumber::message_type_map = {{"file", MessageType::file}, {"command", MessageType::command}};
+std::map<std::string, CommandType> StringToEnumNumber::command_type_map = 
+    {{"remove", CommandType::remove_file},
+    {"move", CommandType::move},
+    {"list", CommandType::list},
+    {"ping", CommandType::ping},
+    {"response", CommandType::response},
+    {"exit", CommandType::end_connection},
+    {"get", CommandType::get}};
 
-int StringToEnumNumber::StringToMessageType(const std::string message_string)
+MessageType StringToEnumNumber::StringToMessageType(const std::string& message_string)
 {
-    return GetEnum(message_string, message_type_array, message_types_n);
+    return message_type_map[message_string];
 }
 
-int StringToEnumNumber::StringToCommandType(const std::string message_string)
+CommandType StringToEnumNumber::StringToCommandType(const std::string& command_string)
 {
-    return GetEnum(message_string, command_type_array, command_types_n);
+    return command_type_map[command_string];
 }
 
-std::string StringToEnumNumber::MessageTypeToString(const int type)
+std::string StringToEnumNumber::MessageTypeToString(MessageType messageType)
 {
-    return message_type_array[type];
+    return enumVariantToString(messageType, message_type_map);
 }
 
-std::string StringToEnumNumber::CommandTypeToString(const int type)
+std::string StringToEnumNumber::CommandTypeToString(CommandType commandType)
 {
-    return command_type_array[type];
+    return enumVariantToString(commandType, command_type_map);
 }
 
-int StringToEnumNumber::GetEnum(const std::string message_string, const std::string type_array[], int n)
+template<typename T>
+std::string StringToEnumNumber::enumVariantToString(T enumVariant, const std::map<std::string, T>& valuesMap)
 {
-    for(int i = 0; i < n; i++)
-    {
-        if(type_array[i] == message_string)
-        {
-            return i;
-        }
-    }
-    return -1;
+    auto valueEnumVariant = std::find_if(valuesMap.cbegin(), valuesMap.cend(), [&enumVariant] (auto keyval) {
+        return keyval.second == enumVariant;
+    });
+
+    return valueEnumVariant->first;
 }

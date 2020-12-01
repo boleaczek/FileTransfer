@@ -2,22 +2,23 @@
 #define STRING_TO_ENUM_NUMBER
 
 #include <string>
+#include <map>
 #include "Packet.h"
+#include "CommandPacket.h"
 
 class StringToEnumNumber
 {
 public:
-    static int StringToMessageType(const std::string);
-    static int StringToCommandType(const std::string);
-    static std::string CommandTypeToString(const int);
-    static std::string MessageTypeToString(const int);
+    static MessageType StringToMessageType(const std::string&);
+    static CommandType StringToCommandType(const std::string&);
+    static std::string CommandTypeToString(const CommandType commandType);
+    static std::string MessageTypeToString(const MessageType messageType);
 private:
-    static int GetEnum(const std::string, const std::string[], int);
+    template<typename T>
+    static std::string enumVariantToString(T enumVariant, const std::map<std::string, T>& valuesMap);
 
-    static std::string message_type_array[2];
-    static std::string command_type_array[7];
-    static const int command_types_n = 7;
-    static const int message_types_n = 2;
+    static std::map<std::string, CommandType> command_type_map;
+    static std::map<std::string, MessageType> message_type_map;
 };
 
 #endif
