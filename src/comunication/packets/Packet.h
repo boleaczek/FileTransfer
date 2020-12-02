@@ -5,7 +5,7 @@
 #include <sstream>
 #include <unordered_map>
 
-enum class MessageType 
+enum class MessageType
 {
     file,
     command

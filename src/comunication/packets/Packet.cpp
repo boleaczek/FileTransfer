@@ -32,7 +32,7 @@ std::shared_ptr<Packet> Packet::Deserialize(std::stringstream & stream)
 
 int Packet::CharPtrToInt(char * bytes, bool little_endian)
 {
-    
+
     int result = 0;
     int start = sizeof(result);
     int end = 0;
