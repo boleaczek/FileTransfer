@@ -4,6 +4,8 @@
 
 #include "Packet.h"
 
+namespace communication { namespace packets {
+
 struct FilePacket : public Packet
 {
     int bytes_total;
@@ -17,3 +19,5 @@ struct FilePacket : public Packet
     FilePacket(char *, int, int, std::string);
     FilePacket(){}
 };
+
+}}

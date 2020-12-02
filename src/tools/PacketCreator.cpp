@@ -21,6 +21,8 @@ int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string
 
 std::vector<std::tuple<char*,int>> PacketCreator::CreateFilePackets(std::string filename)
 {
+    using FilePacket = communication::packets::FilePacket;
+
     std::vector<std::tuple<char*,int>> vec;
     char * bytes, * chunk;
     
@@ -88,6 +90,8 @@ void PacketCreator::ValidArgs(int recieved, int expected)
 
 PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
 {
+    using CommandPacket = communication::packets::CommandPacket;
+
     this->data_manager = new DataManager;
     this->max_chunk_size = max_chunk_size;
     this->max_meta_size = max_meta_size;

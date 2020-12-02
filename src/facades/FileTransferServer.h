@@ -10,6 +10,7 @@
 
 class FileTransferServer
 {
+    using CommandType = communication::packets::CommandType;
 public:
     FileTransferServer(std::shared_ptr<IServer>, int=64);
     void Start();

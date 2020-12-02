@@ -7,7 +7,7 @@
 
 struct PacketData
 {
-    MessageType type;
-    CommandType command;
+    communication::packets::MessageType type;
+    communication::packets::CommandType command;
     std::vector<std::string> args;
 };

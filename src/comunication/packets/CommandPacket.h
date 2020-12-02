@@ -6,6 +6,8 @@
 
 #include "Packet.h"
 
+namespace communication { namespace packets {
+
 enum class CommandType
 {
     remove_file,
@@ -27,3 +29,5 @@ struct CommandPacket : public Packet
     virtual std::stringstream Serialize() override;
     static std::shared_ptr<Packet> Deserialize(std::stringstream &);
 };
+
+}}

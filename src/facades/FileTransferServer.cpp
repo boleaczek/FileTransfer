@@ -2,6 +2,8 @@
 #include "FileTransferServer.h"
 #include "Server.h"
 
+using MessageType = communication::packets::MessageType;
+
 void FileTransferServer::Start()
 {
     server->Start();

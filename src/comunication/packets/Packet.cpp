@@ -4,6 +4,8 @@
 #include "FilePacket.h"
 #include "Packet.h"
 
+namespace communication { namespace packets {
+
 Packet::Packet(MessageType type) :
     type(type)
 {}
@@ -68,3 +70,5 @@ std::unordered_map<MessageType
             {MessageType::file, FilePacket::Deserialize},
             {MessageType::command, CommandPacket::Deserialize}
         };
+
+}}

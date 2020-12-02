@@ -8,7 +8,7 @@
 class IPackeExtractor
 {
 public:
-    virtual std::shared_ptr<Packet> ExtractPacket(char *) = 0;
+    virtual std::shared_ptr<communication::packets::Packet> ExtractPacket(char *) = 0;
 };
 
 #endif

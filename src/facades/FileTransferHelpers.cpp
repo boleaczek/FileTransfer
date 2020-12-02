@@ -6,6 +6,9 @@
 #include "PacketExtractor.h"
 #include "algorithm"
 
+using CommandType = communication::packets::CommandType;
+using Packet = communication::packets::Packet;
+
 int FileTransferHelpers::GetCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {
     return packet_creator->CreateCommandPacket(type, args, packet);
@@ -32,6 +35,9 @@ void FileTransferHelpers::SendCommand(std::shared_ptr<ICommunicator> handle, cha
 
 PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, int max_packet_size)
 {
+    using MessageType = communication::packets::MessageType;
+    using CommandPacket = communication::packets::CommandPacket;
+
     char * bytes;
     handle->Recieve(bytes, max_packet_size);
     auto packet = packet_extractor->ExtractPacket(bytes);
@@ -55,7 +61,8 @@ PacketData FileTransferHelpers::Recieve(std::shared_ptr<ICommunicator> handle, i
 
 void FileTransferHelpers::RecieveFilePackets(std::shared_ptr<ICommunicator> handle, std::shared_ptr<Packet> initial, int max_packet_size)
 {
-    
+    using FilePacket = communication::packets::FilePacket;
+
     auto initial_fp = std::dynamic_pointer_cast<FilePacket>(initial);
     int how_much = initial_fp->bytes_total;
 

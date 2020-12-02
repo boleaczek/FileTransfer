@@ -6,6 +6,9 @@
 #include "Packet.h"
 #include "CommandPacket.h"
 
+using CommandType = communication::packets::CommandType;
+using MessageType = communication::packets::MessageType;
+
 class StringToEnumNumber
 {
 public:

@@ -4,6 +4,8 @@
 #include <errno.h>
 #include <string.h>
 
+using Packet = communication::packets::Packet;
+
 std::shared_ptr<Packet> PacketExtractor::ExtractPacket(char * bytes)
 {
     std::stringstream stream;

@@ -11,6 +11,8 @@
 
 class PacketCreator : public IPacketCreator
 {
+    using CommandType = communication::packets::CommandType;
+    using Packet = communication::packets::Packet;
 public:
     PacketCreator(int=32, int=32);
     virtual int CreateCommandPacket(CommandType, std::vector<std::string> args, char * &) override;

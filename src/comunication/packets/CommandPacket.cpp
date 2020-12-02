@@ -2,6 +2,8 @@
 
 #include "CommandPacket.h"
 
+namespace communication { namespace packets {
+
 std::stringstream CommandPacket::Serialize()
 {
     auto ss = Packet::Serialize();
@@ -54,3 +56,5 @@ CommandPacket::CommandPacket(CommandType command, std::vector<std::string> args)
     args(args),
     command(command)
 {}
+
+}}

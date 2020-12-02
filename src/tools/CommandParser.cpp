@@ -6,6 +6,9 @@
 
 PacketData CommandParser::Parse(const std::string input)
 {
+    using MessageType = communication::packets::MessageType;
+    using CommandType = communication::packets::CommandType;
+
     const std::string fileCommand = "file";
 
     PacketData res;

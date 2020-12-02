@@ -3,6 +3,8 @@
 #include "FilePacket.h"
 #include "Packet.h"
 
+namespace communication { namespace packets {
+
 std::stringstream FilePacket::Serialize()
 {
     std::stringstream stream = Packet::Serialize();
@@ -54,3 +56,5 @@ FilePacket::FilePacket(char * bytes, int bytes_sent, int bytes_total, std::strin
     bytes(bytes),
     file_name(file_name)
 {}
+
+}}

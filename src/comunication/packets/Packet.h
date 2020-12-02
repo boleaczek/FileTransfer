@@ -5,6 +5,8 @@
 #include <sstream>
 #include <unordered_map>
 
+namespace communication { namespace packets {
+
 enum class MessageType
 {
     file,
@@ -25,3 +27,5 @@ private:
     static std::unordered_map<MessageType
         , std::function<std::shared_ptr<Packet> (std::stringstream &)>> deserialization_methods;
 };
+
+}}

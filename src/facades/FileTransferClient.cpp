@@ -19,6 +19,8 @@ void FileTransferClient::Stop()
     }
 }
 
+using MessageType = communication::packets::MessageType;
+
 void FileTransferClient::SendPacket(PacketData data)
 {
     if(data.type == MessageType::command)

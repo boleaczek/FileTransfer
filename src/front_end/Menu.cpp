@@ -10,6 +10,8 @@
 #include "PacketData.h"
 #include "StringToEnumNumber.h"
 
+using MessageType = communication::packets::MessageType;
+
 void Menu::Start()
 {
     StartClient();

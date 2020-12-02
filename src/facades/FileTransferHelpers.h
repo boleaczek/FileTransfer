@@ -14,6 +14,8 @@
 
 class FileTransferHelpers
 {
+    using CommandType = communication::packets::CommandType;
+    using Packet = communication::packets::Packet;
 public:
     FileTransferHelpers();
     int GetCommandPacket(CommandType, std::vector<std::string>, char * &);
