@@ -1,5 +1,6 @@
-#include "DataManager.h"
 #include <cstring>
+
+#include "DataManager.h"
 
 int DataManager::ReadData(const std::string fileName, char * & bytes)
 {
