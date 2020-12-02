@@ -1,5 +1,4 @@
-#ifndef PACKET_EXTRACTOR_H
-#define PACKET_EXTRACTOR_H
+#pragma once
 
 #include <memory>
 
@@ -13,5 +12,3 @@ public:
 private:
     int packet_size;
 };
-
-#endif

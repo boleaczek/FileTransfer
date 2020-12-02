@@ -1,9 +1,10 @@
-#include "PacketCreator.h"
-#include "DataManager.h"
+#include <algorithm>
 #include <cstring>
 #include <strstream>
 #include <string>
-#include <algorithm>
+
+#include "DataManager.h"
+#include "PacketCreator.h"
 
 int PacketCreator::CreateCommandPacket(CommandType type, std::vector<std::string> args, char * & packet)
 {

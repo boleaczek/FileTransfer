@@ -1,13 +1,13 @@
-#ifndef PACKET_CREATOR_H
-#define PACKET_CREATOR_H
+#pragma once
 
-#include "IPacketCreator.h"
-#include "Packet.h"
+#include <functional>
+#include <unordered_map>
+
+#include "DataManager.h"
 #include "FilePacket.h"
 #include "IDataManager.h"
-#include "DataManager.h"
-#include <unordered_map>
-#include <functional>
+#include "IPacketCreator.h"
+#include "Packet.h"
 
 class PacketCreator : public IPacketCreator
 {
@@ -30,5 +30,3 @@ private:
     int max_chunk_size;
     int max_meta_size;
 };
-
-#endif

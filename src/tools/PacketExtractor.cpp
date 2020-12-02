@@ -1,8 +1,9 @@
-#include "PacketExtractor.h"
-#include <strstream>
-#include <iostream>
 #include <errno.h>
+#include <iostream>
 #include <string.h>
+#include <strstream>
+
+#include "PacketExtractor.h"
 
 using Packet = communication::packets::Packet;
 
