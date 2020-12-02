@@ -1,10 +1,10 @@
-#ifndef STRING_TO_ENUM_NUMBER
-#define STRING_TO_ENUM_NUMBER
+#pragma once
 
-#include <string>
 #include <map>
-#include "Packet.h"
+#include <string>
+
 #include "CommandPacket.h"
+#include "Packet.h"
 
 using CommandType = communication::packets::CommandType;
 using MessageType = communication::packets::MessageType;
@@ -23,5 +23,3 @@ private:
     static std::map<std::string, CommandType> command_type_map;
     static std::map<std::string, MessageType> message_type_map;
 };
-
-#endif
