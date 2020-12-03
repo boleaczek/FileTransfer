@@ -7,10 +7,10 @@
 
 namespace communication { namespace packets {
 
-enum class MessageType
+enum class MessageType : std::uint32_t
 {
-    file,
-    command
+    file = 0,
+    command = 1
 };
 
 struct Packet

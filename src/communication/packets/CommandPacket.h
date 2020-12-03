@@ -8,15 +8,15 @@
 
 namespace communication { namespace packets {
 
-enum class CommandType
+enum class CommandType : std::uint32_t
 {
-    remove_file,
-    move,
-    list,
-    ping,
-    response,
-    end_connection,
-    get
+    remove_file = 0,
+    move = 1,
+    list = 2,
+    ping = 3,
+    response = 4,
+    end_connection = 5,
+    get = 6
 };
 
 struct CommandPacket : public Packet
