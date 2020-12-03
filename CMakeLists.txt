@@ -23,6 +23,6 @@ add_subdirectory(libs/googletest) #Build all the gtest stuff
 include_directories(libs/googletest/include)
 
 add_executable(FileTransfer ${SOURCES} "src/file_transfer.cpp")
-add_executable(FileTransferTests ${TESTS_SOURCES} "src/tests/main.cpp")
+add_executable(FileTransferTests ${TESTS_SOURCES} ${SOURCES} "src/tests/main.cpp")
 
 target_link_libraries(FileTransferTests gtest gtest_main)
