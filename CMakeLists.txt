@@ -15,5 +15,14 @@ file(GLOB SOURCES
     "src/communication/*.cpp"
     "src/communication/packets/*.cpp"
     "src/tools/*.cpp")
+file(GLOB TESTS_SOURCES
+    "src/tests/*.cpp"
+    "src/tests/communication/packets/*.cpp")
+
+add_subdirectory(libs/googletest) #Build all the gtest stuff
+include_directories(libs/googletest/include)
 
 add_executable(FileTransfer ${SOURCES} "src/file_transfer.cpp")
+add_executable(FileTransferTests ${TESTS_SOURCES} "src/tests/main.cpp")
+
+target_link_libraries(FileTransferTests gtest gtest_main)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <memory>
 #include <unordered_map>
 
 #include "DataManager.h"
@@ -26,7 +27,7 @@ private:
 
     std::unordered_map<CommandType, 
         std::function<Packet *(std::vector<std::string>)>> command_creator_functions;
-    IDataManager * data_manager;
+    std::unique_ptr<IDataManager> data_manager;
     int max_chunk_size;
     int max_meta_size;
 };

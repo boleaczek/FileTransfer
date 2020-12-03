@@ -89,13 +89,13 @@ void PacketCreator::ValidArgs(int recieved, int expected)
     }
 }
 
-PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size)
+PacketCreator::PacketCreator(int max_chunk_size, int max_meta_size) :
+    data_manager(std::make_unique<DataManager>()),
+    max_chunk_size(max_chunk_size),
+    max_meta_size(max_meta_size)
 {
     using CommandPacket = communication::packets::CommandPacket;
 
-    data_manager = new DataManager;
-    this->max_chunk_size = max_chunk_size;
-    this->max_meta_size = max_meta_size;
     command_creator_functions = 
         {
             {CommandType::list , 
